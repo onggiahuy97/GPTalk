@@ -7,20 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+extension View {
+    func makeCircleImage(systemName: String) -> some View {
+        Image(systemName: systemName)
+            .padding(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: .infinity)
+                    .stroke()
+            )
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct ContentView: View {
+    var body: some View {
+        TabView {
+            ChatsView()
+                .tabItem {
+                    Label("Chats", systemImage: "ellipsis.bubble")
+                }
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+        }
     }
 }

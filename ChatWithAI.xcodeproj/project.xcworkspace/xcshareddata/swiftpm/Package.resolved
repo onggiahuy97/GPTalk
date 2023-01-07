@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "openaiswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamrushy/OpenAISwift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3efc193f9a12c063a0987d9de0fb03ed47affcbf"
+      }
+    }
+  ],
+  "version" : 2
+}
