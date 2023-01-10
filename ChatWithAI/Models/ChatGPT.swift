@@ -7,18 +7,14 @@
 
 import Foundation
 
-struct ChatGPT: Codable, Identifiable {
-    let id: String
-//    let object: String
-//    let created: Int
-//    let model: String
+struct ChatGPT: Codable {
     let choices: [ChatGPTChoice]
     let usage: ChatUsage
 }
 
 struct ChatGPTChoice: Codable {
     let text: String
-    let finishReason: String
+    let finishReason: String?
     
     private enum CodingKeys: String, CodingKey {
         case text

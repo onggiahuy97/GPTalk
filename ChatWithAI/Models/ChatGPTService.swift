@@ -21,9 +21,10 @@ class ChatGPTService {
 }
 
 extension ChatGPTService {
+    static let fixGrammarInstruction = "Fix grammar mistakes"
     
     func sendCompletion(with prompt: String, model: ChatGPTModelType = .gpt3(.davinci), maxTokens: Int = 16, completion: @escaping (Result<ChatGPT, ChatGPTError>) -> Void) {
-        let endpoint = ChatGPTEndPoint.compltions
+        let endpoint = ChatGPTEndPoint.completions
         let body = ChatGPTCommand(prompt: prompt, model: model.modelString, maxTokens: maxTokens)
         let request = makeURLRequest(endpoint: endpoint, body: body)
         
@@ -38,6 +39,26 @@ extension ChatGPTService {
                 }
             case .failure(let failure):
                 completion(.failure(.generic(error: failure)))
+            }
+        }
+    }
+    
+    func sendEdits(with instruction: String, model: EditGPTModelType = .edit(.davinci), input: String, completion: @escaping (Result<ChatGPT, ChatGPTError>) -> Void) {
+        let endpoint = ChatGPTEndPoint.edits
+        let body = EditGPTInstruction(instruction: instruction, model: model.modelName, input: input)
+        let request = makeURLRequest(endpoint: endpoint, body: body)
+        
+        makeRequest(request: request) { result in
+            switch result {
+            case .failure(let failure):
+                completion(.failure(.generic(error: failure)))
+            case .success(let success):
+                do {
+                    let res = try JSONDecoder().decode(ChatGPT.self, from: success)
+                    completion(.success(res))
+                } catch {
+                    completion(.failure(.decoding(error: error)))
+                }
             }
         }
     }

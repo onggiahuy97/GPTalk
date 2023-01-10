@@ -15,6 +15,10 @@
 		3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104C2963AF1900FBCBC4 /* ContentView.swift */; };
 		3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
 		3E19105229647B9600FBCBC4 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19105129647B9600FBCBC4 /* ChatGPTService.swift */; };
+		3E255C2A296DC30500B0E987 /* APIKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C29296DC30500B0E987 /* APIKeysView.swift */; };
+		3E255C2C296DDB3700B0E987 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
+		3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */; };
+		3EBC8DBE296C636200255649 /* EditGPTModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBD296C636200255649 /* EditGPTModelType.swift */; };
 		3EDCA184296489DC00A0AF8B /* ChatGPTCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */; };
 		3EDCA186296489F800A0AF8B /* ChatGPTModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA185296489F800A0AF8B /* ChatGPTModelType.swift */; };
 		3EDCA188296491C800A0AF8B /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA187296491C800A0AF8B /* ChatGPT.swift */; };
@@ -33,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		3E151B672968FE39007D4311 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		3E151B69296B1316007D4311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E1910362963AEC200FBCBC4 /* ChatWithAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatWithAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWithAIApp.swift; sourceTree = "<group>"; };
 		3E19103D2963AEC300FBCBC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +45,10 @@
 		3E19104C2963AF1900FBCBC4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		3E19105129647B9600FBCBC4 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
+		3E255C29296DC30500B0E987 /* APIKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeysView.swift; sourceTree = "<group>"; };
+		3E255C2B296DDB3700B0E987 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTInstruction.swift; sourceTree = "<group>"; };
+		3EBC8DBD296C636200255649 /* EditGPTModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTModelType.swift; sourceTree = "<group>"; };
 		3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCommand.swift; sourceTree = "<group>"; };
 		3EDCA185296489F800A0AF8B /* ChatGPTModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTModelType.swift; sourceTree = "<group>"; };
 		3EDCA187296491C800A0AF8B /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
@@ -89,6 +98,7 @@
 		3E1910382963AEC200FBCBC4 /* ChatWithAI */ = {
 			isa = PBXGroup;
 			children = (
+				3E151B69296B1316007D4311 /* Info.plist */,
 				3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */,
 				3E19104C2963AF1900FBCBC4 /* ContentView.swift */,
 				3EDCA1A029667E1A00A0AF8B /* Helpers */,
@@ -119,11 +129,22 @@
 				3E19105129647B9600FBCBC4 /* ChatGPTService.swift */,
 				3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */,
 				3EDCA185296489F800A0AF8B /* ChatGPTModelType.swift */,
+				3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */,
 				3EDCA187296491C800A0AF8B /* ChatGPT.swift */,
 				3EDCA189296491F600A0AF8B /* ChatGPTEndpoint.swift */,
 				3EDCA1A329668C8100A0AF8B /* SmartInfo.swift */,
+				3EBC8DBD296C636200255649 /* EditGPTModelType.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3E255C28296DC2F100B0E987 /* SettingViews */ = {
+			isa = PBXGroup;
+			children = (
+				3EDCA1992965D9B700A0AF8B /* SettingsView.swift */,
+				3E255C29296DC30500B0E987 /* APIKeysView.swift */,
+			);
+			path = SettingViews;
 			sourceTree = "<group>";
 		};
 		3EDCA1902964C71300A0AF8B /* Controllers */ = {
@@ -148,7 +169,7 @@
 			children = (
 				3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */,
 				3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */,
-				3EDCA1992965D9B700A0AF8B /* SettingsView.swift */,
+				3E255C28296DC2F100B0E987 /* SettingViews */,
 				3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */,
 				3EDCA1A529668E2500A0AF8B /* SmartInfoView.swift */,
 			);
@@ -160,6 +181,7 @@
 			children = (
 				3EDCA1A129667E2500A0AF8B /* String+Extension.swift */,
 				3E151B672968FE39007D4311 /* Date+Extension.swift */,
+				3E255C2B296DDB3700B0E987 /* View+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -244,11 +266,14 @@
 				3EDCA1982965D8CC00A0AF8B /* ChatsView.swift in Sources */,
 				3EDCA1962965D8AC00A0AF8B /* ChatMessageView.swift in Sources */,
 				3E19103A2963AEC200FBCBC4 /* ChatWithAIApp.swift in Sources */,
+				3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */,
 				3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */,
+				3EBC8DBE296C636200255649 /* EditGPTModelType.swift in Sources */,
 				3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */,
 				3EDCA19E2965FEEB00A0AF8B /* AppViewModel.swift in Sources */,
 				3EDCA18F2964C6D200A0AF8B /* Main.xcdatamodeld in Sources */,
 				3EDCA1A629668E2500A0AF8B /* SmartInfoView.swift in Sources */,
+				3E255C2A296DC30500B0E987 /* APIKeysView.swift in Sources */,
 				3EDCA1922964C73300A0AF8B /* DataController.swift in Sources */,
 				3EDCA19C2965DA9B00A0AF8B /* InformationView.swift in Sources */,
 				3EDCA1A429668C8100A0AF8B /* SmartInfo.swift in Sources */,
@@ -259,6 +284,7 @@
 				3EDCA186296489F800A0AF8B /* ChatGPTModelType.swift in Sources */,
 				3E151B682968FE39007D4311 /* Date+Extension.swift in Sources */,
 				3EDCA19A2965D9B700A0AF8B /* SettingsView.swift in Sources */,
+				3E255C2C296DDB3700B0E987 /* View+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,8 +416,8 @@
 				DEVELOPMENT_TEAM = B6LXP9JCNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChatWithAI/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "You need to unclock before seeing your API Keys";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -421,8 +447,8 @@
 				DEVELOPMENT_TEAM = B6LXP9JCNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChatWithAI/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "You need to unclock before seeing your API Keys";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LocalAuthentication
 
 struct MaxTokenSettingView: View {
     @EnvironmentObject var chatVM: ChatViewModel
@@ -42,6 +41,19 @@ struct MaxTokenSettingView: View {
                     TextField("Enter number of tokens to use", text: $tokens)
                         .textFieldStyle(.roundedBorder)
                         .keyboardType(.numberPad)
+                        .onChange(of: tokens) { newValue in
+                            let allowed = CharacterSet.decimalDigits
+                            let set = CharacterSet(charactersIn: newValue)
+                            guard allowed.isSuperset(of: set) else {
+                                tokens.removeAll { c in
+                                    !c.isNumber
+                                }
+                                return
+                            }
+                            guard let value = Int(newValue) else { return }
+//                            let comparedValue = Int(chatVM.modelType.maxTokens)
+                            tokens = String(value > 500 ? 500 : value)
+                        }
                 }
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 12).stroke())
@@ -96,46 +108,10 @@ struct ModelPickerView: View {
     }
 }
 
-struct APIKeysView: View {
-    @State private var isUnlocked = false
-    
-    var body: some View {
-        Group {
-            if isUnlocked {
-                Text("Unclock")
-            } else {
-                Button("Click here to unlock") {
-                    authenticate()
-                }
-                .bold()
-                .padding()
-                .foregroundColor(.blue)
-            }
-        }
-        .onAppear(perform: authenticate)
-    }
-    
-    private func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Authentication Keys API Purposes"
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { grant, error in
-                if grant {
-                    isUnlocked = true
-                } else {
-                    
-                }
-            }
-        } else {
-            
-        }
-    }
-}
 
 struct SettingsView: View {
     @EnvironmentObject var appVM: AppViewModel
+    @Environment(\.managedObjectContext) var viewContext
     
     var apiKeysView: some View {
         Section {
@@ -181,15 +157,24 @@ struct SettingsView: View {
         } footer: {
             HStack {
                 Spacer()
-                Text("Made by **Huy Ong** with love ♥️")
+                Text("Made by [**Huy Ong**](https://twitter.com/OGHuy18) with love ♥️")
                 Spacer()
             }
             .multilineTextAlignment(.center)
         }
     }
     
+    @State private var showInformation = false
+    
     var chatgpt3View: some View {
         Section {
+            Button("Free Version Info") {
+                showInformation.toggle()
+            }
+            .sheet(isPresented: $showInformation) {
+                InformationView()
+                    .onDisappear(perform: appVM.checkIfHasSeenBefore)
+            }
             NavigationLink("Model GPT-3") {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
@@ -225,6 +210,25 @@ struct SettingsView: View {
         }
     }
     
+    var generalSettingView: some View {
+        Section {
+            Button("Clear All History Chats") {
+                let chatsRequest = ChatMessage.fetchRequest()
+                do {
+                    let chats = try viewContext.fetch(chatsRequest)
+                    chats.forEach {
+                        viewContext.delete($0)
+                    }
+                    try viewContext.save()
+                } catch {
+                    print("Error \(error.localizedDescription)")
+                    return
+                }
+            }
+            .foregroundColor(.blue)
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -232,6 +236,7 @@ struct SettingsView: View {
                 maxTokensView
                 modelTypesView
                 chatgpt3View
+                generalSettingView
                 aboutMeView
             }
             .navigationTitle("Settings")

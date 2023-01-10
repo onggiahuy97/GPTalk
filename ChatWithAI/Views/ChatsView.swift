@@ -34,6 +34,13 @@ struct ChatsView: View {
         }
     }
     
+    var textPrompt: String {
+        switch chatVM.model {
+        case .completions: return "Enter chat"
+        case .edits: return "Enter your text"
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollViewReader { scrollProxy in
@@ -61,7 +68,19 @@ struct ChatsView: View {
                     .scrollDismissesKeyboard(.immediately)
                     
                     HStack {
-                        TextField("Enter Chat", text: $chatVM.text)
+                        Menu {
+                            Picker("Model", selection: $chatVM.model) {
+                                ForEach(ChatViewModel.ModelType.allCases) { model in
+                                    Text(model.name)
+                                        .tag(model)
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
+                                .imageScale(.large)
+                        }
+                        
+                        TextField(textPrompt, text: $chatVM.text)
                             .focused($isTextFieldFocus)
                             .textFieldStyle(.roundedBorder)
                             .onChange(of: isTextFieldFocus) { _ in
@@ -85,9 +104,18 @@ struct ChatsView: View {
                                     }
                                 }
                             }
+                            .onChange(of: chatVM.text) { newValue in
+                                if chatVM.model == .edits {
+                                    if newValue.count > ChatViewModel.limitCharacters {
+                                        chatVM.text = String(newValue.prefix(ChatViewModel.limitCharacters))
+                                    }
+                                }
+                            }
                             .onAppear {
                                 scrollProxy.scrollTo("last")
                                 showInformation = appVM.isFirstLauch
+                                deleteUnansweredQuestions()
+                                
                             }
                         
                         Button(action: onSubmitChat) {
@@ -103,26 +131,17 @@ struct ChatsView: View {
                 }
             }
             .navigationTitle("GPTalk")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: deleteAllChats) {
-                        Image(systemName: "trash")
-                            .foregroundColor(.accentColor)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showInformation.toggle()
-                    } label: {
-                        Image(systemName: "exclamationmark.square")
-                    }
-                    .sheet(isPresented: $showInformation) {
-                        InformationView()
-                            .onDisappear(perform: appVM.checkIfHasSeenBefore)
-                    }
-                }
-            }
         }
+    }
+    
+    private func deleteUnansweredQuestions() {
+        let unanswerQuestions = chats.filter { chat in
+            (chat.answer ?? "").isEmpty
+        }
+        unanswerQuestions.forEach {
+            viewContext.delete($0)
+        }
+        try? viewContext.save()
     }
     
     private func onSubmitChat() {
@@ -140,20 +159,25 @@ struct ChatsView: View {
         
         try? viewContext.save()
         
-        chatVM.fetchChat { result in
-            chat.answer = result
-            DispatchQueue.main.async {
-                self.isLoadingAnswer = false
-                try? viewContext.save()
+        switch chatVM.model {
+        case .completions:
+            chatVM.fetchChat { result in
+                chat.answer = result
+                chat.model = "chat"
+                DispatchQueue.main.async {
+                    self.isLoadingAnswer = false
+                    try? viewContext.save()
+                }
+            }
+        case .edits:
+            chatVM.fixGrammar { result in
+                chat.answer = result
+                chat.model = "grammar"
+                DispatchQueue.main.async {
+                    self.isLoadingAnswer = false
+                    try? viewContext.save()
+                }
             }
         }
     }
-    
-    private func deleteAllChats() {
-        chats.forEach {
-            viewContext.delete($0)
-        }
-        try? viewContext.save()
-    }
-    
 }

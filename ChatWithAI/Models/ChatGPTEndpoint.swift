@@ -9,26 +9,29 @@ import Foundation
 
 
 enum ChatGPTEndPoint {
-    case compltions
+    case completions
+    case edits
 }
 
 extension ChatGPTEndPoint {
     var path: String {
         switch self {
-        case .compltions:
+        case .completions:
             return "/v1/completions"
+        case .edits:
+            return "/v1/edits"
         }
     }
     
     var method: String {
         switch self {
-        case .compltions: return "POST"
+        case .completions, .edits: return "POST"
         }
     }
     
     func baseURL() -> String {
         switch self {
-        case .compltions: return "https://api.openai.com"
+        case .completions, .edits: return "https://api.openai.com"
         }
     }
 }

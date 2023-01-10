@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-extension View {
-    func makeCircleImage(systemName: String) -> some View {
-        Image(systemName: systemName)
-            .padding(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: .infinity)
-                    .stroke()
-            )
-    }
-}
-
 struct ContentView: View {
     var body: some View {
         TabView {

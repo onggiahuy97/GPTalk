@@ -15,14 +15,36 @@ class ChatViewModel: ObservableObject {
         case token
     }
     
-    @Published var text = ""
+    enum ModelType: String, CaseIterable, Identifiable {
+        var id: String { self.rawValue }
+        case completions, edits
+        
+        var name: String {
+            switch self {
+            case .completions: return "AI Chat"
+            case .edits: return "Fix Grammar"
+            }
+        }
+    }
+    
+    static let limitCharacters = 200
+    
+    @Published var model = ModelType.completions
+    
+    @Published var text = "" {
+        didSet {
+            
+        }
+    }
+    
+    private let editModelType = EditGPTModelType.edit(.davinci)
     
     @Published var modelType = ChatGPTModelType.gpt3(.davinci) {
         didSet {
             userDefault.set(modelType.modelString, forKey: ModelSetting.modelType.rawValue)
         }
     }
-    @Published var maxTokens = 50 {
+    @Published var maxTokens = 500 {
         didSet {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
@@ -35,27 +57,50 @@ class ChatViewModel: ObservableObject {
     
     private let userDefault = UserDefaults.standard
     
+    lazy var openAI: ChatGPTService = {
+        ChatGPTService(token: self.token)
+    }()
+    
     init() {
-        fetchCurrentSetting()
+
     }
     
     func fetchChat(completion: @escaping (String) -> Void) {
-        let openAI = ChatGPTService(token: token)
-        
         openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
             switch result {
             case .failure(let error):
+                print(error)
                 completion(error.localizedDescription)
             case .success(let openAIResult):
-                var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                if openAIResult.choices.first?.finishReason == "length" {
-                    text.append("...\n\n...not enough tokens to get full answer")
-                }
-                completion(text)
+                completion(self.filterResult(openAIResult))
             }
         }
         
         text = ""
+    }
+    
+    func fixGrammar(completion: @escaping (String) -> Void) {
+        let instruction = ChatGPTService.fixGrammarInstruction
+        openAI.sendEdits(with: instruction, input: text) { result in
+            switch result {
+            case .failure(let error):
+                completion(error.localizedDescription)
+            case .success(let openAIResult):
+                completion(self.filterResult(openAIResult))
+            }
+        }
+        text = ""
+    }
+    
+    private func filterResult(_ openAIResult: ChatGPT) -> String {
+        var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if openAIResult.choices.first?.finishReason == "length" {
+            text.append("...\n\n...not enough tokens to get full answer")
+        }
+        if model == .edits {
+            text = "Correct: ".appending(text)
+        }
+        return text
     }
     
     func fetchCurrentSetting() {
@@ -68,11 +113,12 @@ class ChatViewModel: ObservableObject {
                 modelType = ChatGPTModelType.gpt3(.init(rawValue: value ?? "") ?? .davinci)
             case .token:
                 let value = userDefault.string(forKey: type.rawValue)
-                token = value ?? ""
+                token = value ?? self.token
             }
         }
     }
     
+    // Waring: not working correctly
     func updateCurrentSetting() {
         ModelSetting.allCases.forEach { type in
             switch type {

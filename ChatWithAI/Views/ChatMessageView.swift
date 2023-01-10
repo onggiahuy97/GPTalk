@@ -7,19 +7,19 @@
 
 import SwiftUI
 import WebKit
+import SafariServices
 
-struct WebViewContainer: UIViewRepresentable {
+struct SafariWebView: UIViewControllerRepresentable {
     var url: URL
     
-    func makeUIView(context: Context) -> WKWebView {
-        return WKWebView()
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        let safari = SFSafariViewController(url: url)
+        return safari
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        let urlRequest = URLRequest(url: url)
-        uiView.load(urlRequest)
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
+        
     }
-    
 }
 
 struct WebView: View {
@@ -28,18 +28,8 @@ struct WebView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        NavigationStack {
-            WebViewContainer(url: url)
-                .navigationTitle("Search")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Done") {
-                            dismiss()
-                        }
-                    }
-                }
-        }
+        SafariWebView(url: url)
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -121,6 +111,7 @@ struct ChatMessageView: View {
             }
             
             Text(chat.answer ?? "")
+                .textSelection(.enabled)
         }
         .padding()
         .foregroundColor(.accentColor)

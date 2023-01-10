@@ -16,10 +16,12 @@ struct InformationView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
-                    makeRow(header: chatVM.modelType.modelString, content: chatVM.modelType.goodAt, systemName: "cube.transparent")
+                    makeRow(header: ChatGPTModelType.GPT3(rawValue: chatVM.modelType.modelString)?.name ?? "", content: chatVM.modelType.goodAt, systemName: "cube.transparent")
                     makeRow(header: "Max Tokens", content: "500 · More tokens give more words in answer", systemName: "centsign.circle")
                     makeRow(header: "Training Data", content: chatVM.modelType.trainingData, systemName: "calendar.circle")
                     makeRow(header: "Description", content: chatVM.modelType.description, systemName: "doc.circle")
+                    Divider()
+                    makeRow(header: "Grammar", content: "The model can fix grammar up to 200 characters", systemName: "wrench.and.screwdriver")
                     Button {
                         
                     } label: {
