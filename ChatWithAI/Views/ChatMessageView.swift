@@ -6,32 +6,6 @@
 //
 
 import SwiftUI
-import WebKit
-import SafariServices
-
-struct SafariWebView: UIViewControllerRepresentable {
-    var url: URL
-    
-    func makeUIViewController(context: Context) -> SFSafariViewController {
-        let safari = SFSafariViewController(url: url)
-        return safari
-    }
-    
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
-        
-    }
-}
-
-struct WebView: View {
-    var url: URL
-    
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        SafariWebView(url: url)
-            .edgesIgnoringSafeArea(.all)
-    }
-}
 
 struct ChatMessageView: View {
     @EnvironmentObject var appVM: AppViewModel
@@ -97,21 +71,18 @@ struct ChatMessageView: View {
                 Spacer()
                 
                 if chat.answer != nil, !smartInfos.isEmpty {
-//                    Button {
-//                        showMoreInformation.toggle()
-//                    } label: {
-//                        Text("more")
-//                            .font(.caption)
-//                    }
-//                    .sheet(isPresented: $showMoreInformation) {
-//                        SmartInfoView(smartInfos: smartInfos)
-//                    }
+                    // Add machine learning here
                 }
                 
             }
             
             Text(chat.answer ?? "")
                 .textSelection(.enabled)
+            
+            #warning("Paraphrasing feature will come later")
+            if let paraphrase = chat.paraphrase {
+                
+            }
         }
         .padding()
         .foregroundColor(.accentColor)

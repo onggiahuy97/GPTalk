@@ -136,7 +136,7 @@ struct ChatsView: View {
     
     private func deleteUnansweredQuestions() {
         let unanswerQuestions = chats.filter { chat in
-            (chat.answer ?? "").isEmpty
+            (chat.answer ?? "").isEmpty || chat.answer == "Something went wrong. Try again"
         }
         unanswerQuestions.forEach {
             viewContext.delete($0)

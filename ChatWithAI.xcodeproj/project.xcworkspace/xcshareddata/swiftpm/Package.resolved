@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "openaiswift",
+      "identity" : "purchases-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/adamrushy/OpenAISwift.git",
+      "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "3efc193f9a12c063a0987d9de0fb03ed47affcbf"
+        "revision" : "9cfb6adb41dc40d80c104b2ef6e9a84bca03ea48",
+        "version" : "4.16.0"
       }
     }
   ],

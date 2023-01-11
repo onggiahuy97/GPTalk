@@ -12,6 +12,8 @@ struct InformationView: View {
     
     @EnvironmentObject var chatVM: ChatViewModel
     
+    @State private var showPayWall = false
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -23,10 +25,10 @@ struct InformationView: View {
                     Divider()
                     makeRow(header: "Grammar", content: "The model can fix grammar up to 200 characters", systemName: "wrench.and.screwdriver")
                     Button {
-                        
+                        showPayWall.toggle()
                     } label: {
                         VStack {
-                            Text("Provide Your Private API Keys")
+                            Text("Get Subscription")
                                 .bold()
                             Text("So, you can fully customize")
                                 .font(.callout)
@@ -38,6 +40,10 @@ struct InformationView: View {
                         .background(Color.blue)
                         .cornerRadius(12)
                     }
+                    .sheet(isPresented: $showPayWall) {
+                        PayWall()
+                    }
+                    
                     Spacer()
                 }
                 .padding(30)

@@ -7,111 +7,21 @@
 
 import SwiftUI
 
-struct MaxTokenSettingView: View {
-    @EnvironmentObject var chatVM: ChatViewModel
-    @Environment(\.dismiss) var dismiss
-    @State private var tokens = ""
-    
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                ForEach(ChatGPTModelType.GPT3.allCases) { model in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(model.name)
-                                .bold()
-                            Text("· Model's Max Tokens: \(ChatGPTModelType.gpt3(model).maxTokens)")
-                                .foregroundColor(.secondary)
-                            Divider()
-                        }
-                        Spacer()
-                        Image(systemName: "checkmark")
-                            .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
-                    }
-                    .onTapGesture {
-                        chatVM.modelType = ChatGPTModelType.gpt3(model)
-                    }
-                }
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("Your current tokens setting is ")
-                        .foregroundColor(.secondary)
-                        .bold()
-                    + Text("\(chatVM.maxTokens)")
-                        .bold()
-                    TextField("Enter number of tokens to use", text: $tokens)
-                        .textFieldStyle(.roundedBorder)
-                        .keyboardType(.numberPad)
-                        .onChange(of: tokens) { newValue in
-                            let allowed = CharacterSet.decimalDigits
-                            let set = CharacterSet(charactersIn: newValue)
-                            guard allowed.isSuperset(of: set) else {
-                                tokens.removeAll { c in
-                                    !c.isNumber
-                                }
-                                return
-                            }
-                            guard let value = Int(newValue) else { return }
-//                            let comparedValue = Int(chatVM.modelType.maxTokens)
-                            tokens = String(value > 500 ? 500 : value)
-                        }
-                }
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 12).stroke())
-                .padding(.vertical)
-            }
-            .padding()
-        }
-        .navigationTitle("Set Max Tokens")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Save") {
-                    guard let value = Int(tokens) else { return }
-                    chatVM.maxTokens = value
-                    self.dismiss()
-                }
-                .bold()
-            }
-        }
-    }
-}
-
-struct ModelPickerView: View {
-    @EnvironmentObject var chatVM: ChatViewModel
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(ChatGPTModelType.GPT3.allCases) { model in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(model.name)
-                                    .bold()
-                                Text(ChatGPTModelType.gpt3(model).goodAt)
-                                    .foregroundColor(.secondary)
-                                Divider()
-                            }
-                            Spacer()
-                            Image(systemName: "checkmark")
-                                .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
-                        }
-                        .onTapGesture {
-                            chatVM.modelType = ChatGPTModelType.gpt3(model)
-                        }
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("Pick Model")
-        }
-    }
-}
-
-
 struct SettingsView: View {
     @EnvironmentObject var appVM: AppViewModel
     @Environment(\.managedObjectContext) var viewContext
+    
+    var payWallView: some View {
+        Section {
+            makeRow(title: "Subscriptions", systemName: "lock.fill", color: .red) {
+                PayWall()
+            }
+        } header: {
+            Text("Subscription")
+        } footer: {
+            Text("You can choose any subscriptions you'd like to unlock full potential of the app :)")
+        }
+    }
     
     var apiKeysView: some View {
         Section {
@@ -127,7 +37,7 @@ struct SettingsView: View {
     
     var modelTypesView: some View {
         Section {
-            makeRow(title: "Model", systemName: "cube.transparent", color: .red) {
+            makeRow(title: "Model", systemName: "cube.transparent", color: .green) {
                 ModelPickerView()
             }
         } header: {
@@ -232,6 +142,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                payWallView
                 apiKeysView
                 maxTokensView
                 modelTypesView

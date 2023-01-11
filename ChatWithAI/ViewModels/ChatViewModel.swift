@@ -28,6 +28,7 @@ class ChatViewModel: ObservableObject {
     }
     
     static let limitCharacters = 200
+    static let limitToken = 500
     
     @Published var model = ModelType.completions
     
@@ -44,7 +45,7 @@ class ChatViewModel: ObservableObject {
             userDefault.set(modelType.modelString, forKey: ModelSetting.modelType.rawValue)
         }
     }
-    @Published var maxTokens = 500 {
+    @Published var maxTokens = limitToken {
         didSet {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
@@ -70,7 +71,9 @@ class ChatViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 print(error)
-                completion(error.localizedDescription)
+//                completion(error.localizedDescription)
+                let errorText = "Something went wrong. Try again"
+                completion(errorText)
             case .success(let openAIResult):
                 completion(self.filterResult(openAIResult))
             }

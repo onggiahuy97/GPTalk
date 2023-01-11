@@ -11,12 +11,20 @@
 		3E19103A2963AEC200FBCBC4 /* ChatWithAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */; };
 		3E19103E2963AEC300FBCBC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E19103D2963AEC300FBCBC4 /* Assets.xcassets */; };
 		3E1910412963AEC300FBCBC4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E1910402963AEC300FBCBC4 /* Preview Assets.xcassets */; };
-		3E1910492963AED000FBCBC4 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3E1910482963AED000FBCBC4 /* OpenAISwift */; };
 		3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104C2963AF1900FBCBC4 /* ContentView.swift */; };
 		3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
 		3E19105229647B9600FBCBC4 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19105129647B9600FBCBC4 /* ChatGPTService.swift */; };
 		3E255C2A296DC30500B0E987 /* APIKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C29296DC30500B0E987 /* APIKeysView.swift */; };
 		3E255C2C296DDB3700B0E987 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
+		3E255C2F296DDF6800B0E987 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2E296DDF6800B0E987 /* SafariWebView.swift */; };
+		3E255C31296DDFD300B0E987 /* MaxTokenSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */; };
+		3E255C33296DDFF300B0E987 /* ModelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C32296DDFF300B0E987 /* ModelPickerView.swift */; };
+		3E5AE998296E412A00D5E919 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5AE997296E412A00D5E919 /* RevenueCat */; };
+		3E5AE99D296E448C00D5E919 /* PayWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AE99C296E448C00D5E919 /* PayWall.swift */; };
+		3E5AE99F296E452A00D5E919 /* RevenueCat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AE99E296E452A00D5E919 /* RevenueCat+Extension.swift */; };
+		3E5AE9A2296E644A00D5E919 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AE9A1296E644A00D5E919 /* Constants.swift */; };
+		3E5AE9A4296E652B00D5E919 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AE9A3296E652B00D5E919 /* UserViewModel.swift */; };
+		3E5AE9A6296E6CFB00D5E919 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5AE9A5296E6CFB00D5E919 /* StoreKit.framework */; };
 		3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */; };
 		3EBC8DBE296C636200255649 /* EditGPTModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBD296C636200255649 /* EditGPTModelType.swift */; };
 		3EDCA184296489DC00A0AF8B /* ChatGPTCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */; };
@@ -47,6 +55,14 @@
 		3E19105129647B9600FBCBC4 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 		3E255C29296DC30500B0E987 /* APIKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeysView.swift; sourceTree = "<group>"; };
 		3E255C2B296DDB3700B0E987 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		3E255C2E296DDF6800B0E987 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
+		3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxTokenSettingView.swift; sourceTree = "<group>"; };
+		3E255C32296DDFF300B0E987 /* ModelPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPickerView.swift; sourceTree = "<group>"; };
+		3E5AE99C296E448C00D5E919 /* PayWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWall.swift; sourceTree = "<group>"; };
+		3E5AE99E296E452A00D5E919 /* RevenueCat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RevenueCat+Extension.swift"; sourceTree = "<group>"; };
+		3E5AE9A1296E644A00D5E919 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3E5AE9A3296E652B00D5E919 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		3E5AE9A5296E6CFB00D5E919 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTInstruction.swift; sourceTree = "<group>"; };
 		3EBC8DBD296C636200255649 /* EditGPTModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTModelType.swift; sourceTree = "<group>"; };
 		3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCommand.swift; sourceTree = "<group>"; };
@@ -72,7 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E1910492963AED000FBCBC4 /* OpenAISwift in Frameworks */,
+				3E5AE998296E412A00D5E919 /* RevenueCat in Frameworks */,
+				3E5AE9A6296E6CFB00D5E919 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +101,7 @@
 			children = (
 				3E1910382963AEC200FBCBC4 /* ChatWithAI */,
 				3E1910372963AEC200FBCBC4 /* Products */,
+				3E5AE999296E414600D5E919 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +119,7 @@
 				3E151B69296B1316007D4311 /* Info.plist */,
 				3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */,
 				3E19104C2963AF1900FBCBC4 /* ContentView.swift */,
+				3E5AE9A0296E644200D5E919 /* Shared */,
 				3EDCA1A029667E1A00A0AF8B /* Helpers */,
 				3EDCA1942965D8A400A0AF8B /* Views */,
 				3EDCA1932965D89C00A0AF8B /* ViewModels */,
@@ -143,8 +162,34 @@
 			children = (
 				3EDCA1992965D9B700A0AF8B /* SettingsView.swift */,
 				3E255C29296DC30500B0E987 /* APIKeysView.swift */,
+				3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */,
+				3E255C32296DDFF300B0E987 /* ModelPickerView.swift */,
 			);
 			path = SettingViews;
+			sourceTree = "<group>";
+		};
+		3E255C2D296DDF4C00B0E987 /* SupportViews */ = {
+			isa = PBXGroup;
+			children = (
+				3E255C2E296DDF6800B0E987 /* SafariWebView.swift */,
+			);
+			path = SupportViews;
+			sourceTree = "<group>";
+		};
+		3E5AE999296E414600D5E919 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E5AE9A5296E6CFB00D5E919 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3E5AE9A0296E644200D5E919 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3E5AE9A1296E644A00D5E919 /* Constants.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		3EDCA1902964C71300A0AF8B /* Controllers */ = {
@@ -160,6 +205,7 @@
 			children = (
 				3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */,
 				3EDCA19D2965FEEB00A0AF8B /* AppViewModel.swift */,
+				3E5AE9A3296E652B00D5E919 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -169,6 +215,8 @@
 			children = (
 				3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */,
 				3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */,
+				3E5AE99C296E448C00D5E919 /* PayWall.swift */,
+				3E255C2D296DDF4C00B0E987 /* SupportViews */,
 				3E255C28296DC2F100B0E987 /* SettingViews */,
 				3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */,
 				3EDCA1A529668E2500A0AF8B /* SmartInfoView.swift */,
@@ -182,6 +230,7 @@
 				3EDCA1A129667E2500A0AF8B /* String+Extension.swift */,
 				3E151B672968FE39007D4311 /* Date+Extension.swift */,
 				3E255C2B296DDB3700B0E987 /* View+Extension.swift */,
+				3E5AE99E296E452A00D5E919 /* RevenueCat+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -203,7 +252,7 @@
 			);
 			name = ChatWithAI;
 			packageProductDependencies = (
-				3E1910482963AED000FBCBC4 /* OpenAISwift */,
+				3E5AE997296E412A00D5E919 /* RevenueCat */,
 			);
 			productName = ChatWithAI;
 			productReference = 3E1910362963AEC200FBCBC4 /* ChatWithAI.app */;
@@ -234,7 +283,7 @@
 			);
 			mainGroup = 3E19102D2963AEC200FBCBC4;
 			packageReferences = (
-				3E1910472963AED000FBCBC4 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+				3E5AE996296E412A00D5E919 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 3E1910372963AEC200FBCBC4 /* Products */;
 			projectDirPath = "";
@@ -267,11 +316,18 @@
 				3EDCA1962965D8AC00A0AF8B /* ChatMessageView.swift in Sources */,
 				3E19103A2963AEC200FBCBC4 /* ChatWithAIApp.swift in Sources */,
 				3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */,
+				3E5AE9A2296E644A00D5E919 /* Constants.swift in Sources */,
+				3E255C2F296DDF6800B0E987 /* SafariWebView.swift in Sources */,
+				3E255C31296DDFD300B0E987 /* MaxTokenSettingView.swift in Sources */,
 				3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */,
+				3E255C33296DDFF300B0E987 /* ModelPickerView.swift in Sources */,
 				3EBC8DBE296C636200255649 /* EditGPTModelType.swift in Sources */,
 				3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */,
+				3E5AE99F296E452A00D5E919 /* RevenueCat+Extension.swift in Sources */,
+				3E5AE9A4296E652B00D5E919 /* UserViewModel.swift in Sources */,
 				3EDCA19E2965FEEB00A0AF8B /* AppViewModel.swift in Sources */,
 				3EDCA18F2964C6D200A0AF8B /* Main.xcdatamodeld in Sources */,
+				3E5AE99D296E448C00D5E919 /* PayWall.swift in Sources */,
 				3EDCA1A629668E2500A0AF8B /* SmartInfoView.swift in Sources */,
 				3E255C2A296DC30500B0E987 /* APIKeysView.swift in Sources */,
 				3EDCA1922964C73300A0AF8B /* DataController.swift in Sources */,
@@ -491,21 +547,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3E1910472963AED000FBCBC4 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+		3E5AE996296E412A00D5E919 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3E1910482963AED000FBCBC4 /* OpenAISwift */ = {
+		3E5AE997296E412A00D5E919 /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3E1910472963AED000FBCBC4 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
-			productName = OpenAISwift;
+			package = 3E5AE996296E412A00D5E919 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
 		};
 /* End XCSwiftPackageProductDependency section */
 

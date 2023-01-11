@@ -70,7 +70,7 @@ extension ChatGPTService {
                 completion(.failure(error))
             } else if let data = data {
                 completion(.success(data))
-            }
+            } 
         }
         task.resume()
     }
