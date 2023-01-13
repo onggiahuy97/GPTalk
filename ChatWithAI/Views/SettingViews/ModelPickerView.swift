@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ModelPickerView: View {
     @EnvironmentObject var chatVM: ChatViewModel
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var appVM: AppViewModel
     
+    @Environment(\.dismiss) var dismiss
+    @State private var showSubscription = false
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -29,7 +32,16 @@ struct ModelPickerView: View {
                                 .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
                         }
                         .onTapGesture {
-                            chatVM.modelType = ChatGPTModelType.gpt3(model)
+                            if userVM.subscriptionActive {
+                                chatVM.modelType = ChatGPTModelType.gpt3(model)
+                            } else {
+                                showSubscription = true
+                            }
+                        }
+                        .alert(isPresented: $showSubscription) {
+                            Alert.subscriptionAlert {
+                                appVM.showSubscription = true
+                            }
                         }
                     }
                 }

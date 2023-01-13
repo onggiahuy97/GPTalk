@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appVM: AppViewModel
+    
     var body: some View {
         TabView {
             ChatsView()
@@ -18,6 +20,9 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+        }
+        .sheet(isPresented: $appVM.showSubscription) {
+            PayWall()
         }
     }
 }

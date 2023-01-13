@@ -9,10 +9,15 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var userVM: UserViewModel
+    
     @Environment(\.managedObjectContext) var viewContext
+    
     @ObservedObject var chat: ChatMessage
     
     @State private var showMoreInformation = false
+    
+    @Binding var showSubscription: Bool
     
     var smartInfos: [SmartInfo] {
         return (chat.answer?.getRangeOfPersonName() ?? [])
@@ -31,14 +36,19 @@ struct ChatMessageView: View {
             
             Button(role: .destructive) {
                 DispatchQueue.main.async {
-                    withAnimation {
-                        viewContext.delete(chat)
-                        try? viewContext.save()
+                    if userVM.subscriptionActive {
+                        withAnimation {
+                            viewContext.delete(chat)
+                            try? viewContext.save()
+                        }
+                    } else {
+                        self.showSubscription = true
                     }
                 }
             } label: {
                 Label("Delete", systemImage: "trash")
             }
+            
         } label: {
             Image(systemName: "ellipsis")
         }

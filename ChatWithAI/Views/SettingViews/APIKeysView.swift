@@ -14,7 +14,7 @@ struct APIKeysView: View {
     var body: some View {
         Group {
             if isUnlocked {
-                Text("This feature will come later in the production")
+                Text("Get subscription...")
             } else {
                 Button("Click here to unlock") {
                     authenticate()

@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appVM: AppViewModel
-    @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var userVM: UserViewModel
     
+    @Environment(\.managedObjectContext) var viewContext
+    @State private var showSubscription = false
     var payWallView: some View {
         Section {
             makeRow(title: "Subscriptions", systemName: "lock.fill", color: .red) {
@@ -123,27 +125,49 @@ struct SettingsView: View {
     var generalSettingView: some View {
         Section {
             Button("Clear All History Chats") {
-                let chatsRequest = ChatMessage.fetchRequest()
-                do {
-                    let chats = try viewContext.fetch(chatsRequest)
-                    chats.forEach {
-                        viewContext.delete($0)
+                if userVM.subscriptionActive {
+                    let chatsRequest = ChatMessage.fetchRequest()
+                    do {
+                        let chats = try viewContext.fetch(chatsRequest)
+                        chats.forEach {
+                            viewContext.delete($0)
+                        }
+                        try viewContext.save()
+                    } catch {
+                        print("Error \(error.localizedDescription)")
+                        return
                     }
-                    try viewContext.save()
-                } catch {
-                    print("Error \(error.localizedDescription)")
-                    return
+                } else {
+                    self.showSubscription = true
                 }
             }
             .foregroundColor(.blue)
+            .alert(isPresented: $showSubscription) {
+                Alert.subscriptionAlert {
+                    appVM.showSubscription = true
+                }
+            }
         }
     }
     
     var body: some View {
         NavigationStack {
             Form {
+                if userVM.subscriptionActive {
+                    Section {} header: {} footer: {
+                        HStack {
+                            Spacer()
+                            VStack(alignment: .center) {
+                                Text("Pro subscription")
+                                Text("Thank you for being a subscriber ♥️")
+                            }
+                            Spacer()
+                        }
+                        .multilineTextAlignment(.center)
+                    }
+                }
                 payWallView
-                apiKeysView
+//                apiKeysView
                 maxTokensView
                 modelTypesView
                 chatgpt3View
@@ -151,6 +175,7 @@ struct SettingsView: View {
                 aboutMeView
             }
             .navigationTitle("Settings")
+            
         }
     }
     

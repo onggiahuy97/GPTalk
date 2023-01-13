@@ -22,13 +22,35 @@ struct PayWall: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
+                    Text("With subscription, you will get full potential of the app ♥️")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.accentColor)
+                        .padding(.horizontal, 25)
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                    
+                    Divider()
+                        .padding()
+                    
                     makeInfoRow("Choose any model to use", icon: "cube.transparent")
                     makeInfoRow("Get full answer of every question", icon: "pencil.line")
+                    makeInfoRow("Fix more grammar with AI", icon: "wrench.and.screwdriver")
+                    makeInfoRow("Delete all or any chat", icon: "trash")
+                        .padding(.bottom)
                     
-                    ForEach(userVM.offerings?.current?.availablePackages ?? []) { package in
-                        PackageCellView(package: package) { package in
-                            selectedPackage = package
+                    if let packages = userVM.offerings?.current?.availablePackages, !packages.isEmpty {
+                        ForEach(packages) { package in
+                            PackageCellView(package: package, selectedPackage: $selectedPackage) { package in
+                                withAnimation {
+                                    selectedPackage = package
+                                }
+                            }
                         }
+                    } else {
+                        Text("Fetching Subscriptions Package...")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .bold()
+                            .foregroundColor(.secondary)
                     }
                     
                     Button {
@@ -41,7 +63,10 @@ struct PayWall: View {
                                 let result = try await Purchases.shared.purchase(package: selectedPackage!)
                                 self.isPurchasing = false
                                 if !result.userCancelled {
-                                    
+                                    Purchases.shared.getCustomerInfo { customerInfo, _ in
+                                        userVM.subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
+                                    }
+                                    self.dismiss()
                                 }
                             } catch {
                                 self.isPurchasing = false
@@ -62,6 +87,15 @@ struct PayWall: View {
                     }
                 }
                 .padding()
+                
+                Button("Restore Purchases") {
+                    Purchases.shared.restorePurchases { customerInfo, _ in
+                        userVM.subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(.secondary)
+                
             }
             .navigationTitle("Subscriptions")
             .toolbar {
@@ -86,72 +120,86 @@ struct PayWall: View {
     }
     
     private func makeInfoRow(_ title: String, icon systemName: String) -> some View {
-        Label(title, systemImage: systemName)
+        HStack(alignment: .center, spacing: 10) {
+            Image(systemName: systemName)
+                .frame(width: 44, height: 44)
+            Text(title)
+        }
             .bold()
             .font(.title3)
-            .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundColor(.gray)
     }
     
     
-    struct PackageCellView: View {
-
-        let package: Package
-        let onSelection: (Package) async -> Void
-        
-        
-        var body: some View {
-            Button {
-                Task {
-                    await self.onSelection(self.package)
-                }
-            } label: {
-                self.buttonLabel
-            }
-            .buttonStyle(.plain)
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke()
-                    .foregroundColor(.secondary)
-            )
-        }
-
-        private var buttonLabel: some View {
-            HStack {
-                VStack {
-                    HStack {
-                        Text(package.storeProduct.localizedTitle)
-                            .font(.title3)
-                            .bold()
-                        
-                        Spacer()
-                    }
-                    HStack {
-                        Text(package.terms(for: package))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
-                }
-                .padding([.top, .bottom], 8.0)
-                
-                Spacer()
-                
-                VStack {
-                    Text(package.localizedPriceString)
-                        .font(.title3)
-                        .bold()
-                    Text(package.storeProduct.subscriptionPeriod?.periodTitle ?? "")
-                        .foregroundColor(.secondary)
-                }
-            }
-            .contentShape(Rectangle()) // Make the whole cell tappable
-        }
-
-    }
+    
 }
 
+struct PackageCellView: View {
+
+    let package: Package
+    
+    @Binding var selectedPackage: Package?
+    
+    let onSelection: (Package) async -> Void
+    
+    var isSelected: Bool {
+        package == selectedPackage
+    }
+    
+    var body: some View {
+        Button {
+            Task {
+                await self.onSelection(self.package)
+            }
+        } label: {
+            self.buttonLabel
+        }
+        .buttonStyle(.plain)
+        .padding(.horizontal)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke()
+                .foregroundColor(isSelected ? .accentColor : .secondary)
+        )
+    }
+
+    private var buttonLabel: some View {
+        HStack {
+            if isSelected {
+                Image(systemName: "checkmark")
+            }
+            
+            VStack {
+                HStack {
+                    Text(package.storeProduct.localizedTitle)
+                        .font(.title3)
+                        .bold()
+                    
+                    Spacer()
+                }
+                HStack {
+                    Text(package.terms(for: package))
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
+            }
+            .padding([.top, .bottom], 8.0)
+            
+            Spacer()
+            
+            VStack {
+                Text(package.localizedPriceString)
+                    .font(.title3)
+                    .bold()
+                Text(package.storeProduct.subscriptionPeriod?.periodTitle ?? "")
+                    .foregroundColor(.secondary)
+            }
+        }
+        .contentShape(Rectangle()) // Make the whole cell tappable
+    }
+
+}
 
 extension NSError: LocalizedError {
 

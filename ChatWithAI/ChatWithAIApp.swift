@@ -15,7 +15,7 @@ struct ChatWithAIApp: App {
     @StateObject var userVM = UserViewModel()
     
     init() {
-        Purchases.logLevel = .debug
+        Purchases.logLevel = .warn
         Purchases.configure(with: Configuration.Builder(withAPIKey: Constants.apiKey)
             .with(usesStoreKit2IfAvailable: true)
             .build()

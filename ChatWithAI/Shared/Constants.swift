@@ -9,5 +9,5 @@ import Foundation
 
 struct Constants {
     static let apiKey = "appl_EpbADNjAqkTPrvVuxAgvhpfjKvM"
-    static let entitlementID = "pro"
+    static let entitlementID = "Pro"
 }

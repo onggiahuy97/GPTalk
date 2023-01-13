@@ -20,6 +20,7 @@ struct ChatsView: View {
     @State private var showInformation = false
     @State private var isLoadingAnswer = false
     @State private var testSheet = false
+    @State private var showSubscription = false
     
     @FocusState private var isTextFieldFocus: Bool
     
@@ -52,11 +53,16 @@ struct ChatsView: View {
                         }
                         
                         ForEach(chats) { chat in
-                            ChatMessageView(chat: chat)
+                            ChatMessageView(chat: chat, showSubscription: $showSubscription)
                                 .fullScreenCover(item: $appVM.urlItem, onDismiss: {
                                     appVM.urlItem = nil
                                 }) { item in
                                     WebView(url: item.url)
+                                }
+                                .alert(isPresented: $showSubscription) {
+                                    Alert.subscriptionAlert {
+                                        appVM.showSubscription = true 
+                                    }
                                 }
                         }
                         .padding(.horizontal)

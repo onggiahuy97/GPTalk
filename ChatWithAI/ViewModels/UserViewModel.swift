@@ -10,4 +10,17 @@ import RevenueCat
 
 class UserViewModel: ObservableObject {
     @Published var offerings: Offerings? = nil
+    @Published var subscriptionActive: Bool = false
+    @Published var customerInfo: CustomerInfo? {
+        didSet {
+            subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
+        }
+    }
+    
+    init() {
+        Purchases.shared.getCustomerInfo { customerInfo, _ in
+            self.subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
+        }
+    }
+    
 }

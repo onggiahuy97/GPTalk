@@ -27,19 +27,14 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    static let limitCharacters = 200
-    static let limitToken = 500
-    
-    @Published var model = ModelType.completions
-    
-    @Published var text = "" {
-        didSet {
-            
-        }
-    }
+    static let limitCharacters = 250
+    static let limitToken = 250
     
     private let editModelType = EditGPTModelType.edit(.davinci)
-    
+    private let userDefault = UserDefaults.standard
+
+    @Published var model = ModelType.completions
+    @Published var text = ""
     @Published var modelType = ChatGPTModelType.gpt3(.davinci) {
         didSet {
             userDefault.set(modelType.modelString, forKey: ModelSetting.modelType.rawValue)
@@ -56,15 +51,11 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    private let userDefault = UserDefaults.standard
-    
     lazy var openAI: ChatGPTService = {
         ChatGPTService(token: self.token)
     }()
     
-    init() {
-
-    }
+    init() {}
     
     func fetchChat(completion: @escaping (String) -> Void) {
         openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
