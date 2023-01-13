@@ -166,7 +166,9 @@ struct SettingsView: View {
                         .multilineTextAlignment(.center)
                     }
                 }
+                #warning("Beta testing")
                 payWallView
+                    .disabled(true)
 //                apiKeysView
                 maxTokensView
                 modelTypesView

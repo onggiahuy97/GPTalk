@@ -17,12 +17,21 @@ class ChatViewModel: ObservableObject {
     
     enum ModelType: String, CaseIterable, Identifiable {
         var id: String { self.rawValue }
-        case completions, edits
+        case completions, edits, pharaphrase
         
         var name: String {
             switch self {
-            case .completions: return "AI Chat"
+            case .completions: return "Chat"
             case .edits: return "Fix Grammar"
+            case .pharaphrase: return "Paraphrase"
+            }
+        }
+        
+        var imageName: String {
+            switch self {
+            case .completions: return "ellipsis.bubble"
+            case .edits: return "checkmark.seal"
+            case .pharaphrase: return "pencil.and.outline"
             }
         }
     }
@@ -86,13 +95,28 @@ class ChatViewModel: ObservableObject {
         text = ""
     }
     
+    func paraphraseText(completion: @escaping (String) -> Void) {
+        let instruction = ChatGPTService.paraphraseTextInstruction
+        openAI.sendEdits(with: instruction, input: text) { result in
+            switch result {
+            case .failure(let error):
+                completion(error.localizedDescription)
+            case .success(let openAIResult):
+                completion(self.filterResult(openAIResult))
+            }
+        }
+        text = ""
+    }
+    
     private func filterResult(_ openAIResult: ChatGPT) -> String {
         var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if openAIResult.choices.first?.finishReason == "length" {
             text.append("...\n\n...not enough tokens to get full answer")
         }
         if model == .edits {
-            text = "Correct: ".appending(text)
+            text = "Correct - ".appending(text)
+        } else if model == .pharaphrase {
+            text = "Paraphrased - ".appending(text)
         }
         return text
     }

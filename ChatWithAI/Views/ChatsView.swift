@@ -38,7 +38,8 @@ struct ChatsView: View {
     var textPrompt: String {
         switch chatVM.model {
         case .completions: return "Enter chat"
-        case .edits: return "Enter your text"
+        case .edits: return "Check grammar"
+        case .pharaphrase: return "Paraphrasing text"
         }
     }
     
@@ -77,7 +78,7 @@ struct ChatsView: View {
                         Menu {
                             Picker("Model", selection: $chatVM.model) {
                                 ForEach(ChatViewModel.ModelType.allCases) { model in
-                                    Text(model.name)
+                                    Label(model.name, systemImage: model.imageName)
                                         .tag(model)
                                 }
                             }
@@ -86,7 +87,8 @@ struct ChatsView: View {
                                 .imageScale(.large)
                         }
                         
-                        TextField(textPrompt, text: $chatVM.text)
+                        TextField(textPrompt, text: $chatVM.text, axis: .vertical)
+                            .lineLimit(3)
                             .focused($isTextFieldFocus)
                             .textFieldStyle(.roundedBorder)
                             .onChange(of: isTextFieldFocus) { _ in
@@ -123,6 +125,16 @@ struct ChatsView: View {
                                 deleteUnansweredQuestions()
                                 
                             }
+                        
+                        if !chatVM.text.isEmpty {
+                            Button {
+                                chatVM.text = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.secondary)
+                                    .imageScale(.large)
+                            }
+                        }
                         
                         Button(action: onSubmitChat) {
                             Image(systemName: "paperplane.fill")
@@ -179,6 +191,15 @@ struct ChatsView: View {
             chatVM.fixGrammar { result in
                 chat.answer = result
                 chat.model = "grammar"
+                DispatchQueue.main.async {
+                    self.isLoadingAnswer = false
+                    try? viewContext.save()
+                }
+            }
+        case .pharaphrase:
+            chatVM.paraphraseText { result in
+                chat.answer = result
+                chat.model = "paraphrase"
                 DispatchQueue.main.async {
                     self.isLoadingAnswer = false
                     try? viewContext.save()

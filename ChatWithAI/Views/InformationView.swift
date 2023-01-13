@@ -24,6 +24,7 @@ struct InformationView: View {
                     makeRow(header: "Description", content: chatVM.modelType.description, systemName: "doc.circle")
                     Divider()
                     makeRow(header: "Grammar", content: "The model can fix grammar up to \(ChatViewModel.limitCharacters) characters", systemName: "wrench.and.screwdriver")
+                    
                     Button {
                         showPayWall.toggle()
                     } label: {
@@ -43,7 +44,9 @@ struct InformationView: View {
                     .sheet(isPresented: $showPayWall) {
                         PayWall()
                     }
-                    
+                    .disabled(true)
+                    #warning("Beta testing")
+
                     Spacer()
                 }
                 .padding(30)

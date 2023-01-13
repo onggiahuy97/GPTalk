@@ -10,7 +10,8 @@ import RevenueCat
 
 class UserViewModel: ObservableObject {
     @Published var offerings: Offerings? = nil
-    @Published var subscriptionActive: Bool = false
+    #warning("Beta testing")
+    @Published var subscriptionActive: Bool = true
     @Published var customerInfo: CustomerInfo? {
         didSet {
             subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
@@ -18,9 +19,9 @@ class UserViewModel: ObservableObject {
     }
     
     init() {
-        Purchases.shared.getCustomerInfo { customerInfo, _ in
-            self.subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
-        }
+//        Purchases.shared.getCustomerInfo { customerInfo, _ in
+//            self.subscriptionActive = customerInfo?.entitlements[Constants.entitlementID]?.isActive == true
+//        }
     }
     
 }

@@ -50,7 +50,11 @@ struct ChatMessageView: View {
             }
             
         } label: {
-            Image(systemName: "ellipsis")
+            HStack {
+                Text((chat.date ?? Date()).toString())
+                    .font(.footnote)
+                Image(systemName: "ellipsis")
+            }
         }
     }
     
@@ -59,8 +63,8 @@ struct ChatMessageView: View {
             HStack {
                 makeCircleImage(systemName: "person.fill.questionmark")
                 Spacer()
-                Text((chat.date ?? Date()).toString())
-                    .font(.footnote)
+//                Text((chat.date ?? Date()).toString())
+//                    .font(.footnote)
                 menuView
             }
             

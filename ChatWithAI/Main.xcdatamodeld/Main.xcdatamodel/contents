@@ -3,6 +3,7 @@
     <entity name="ChatMessage" representedClassName="ChatMessage" syncable="YES" codeGenerationType="class">
         <attribute name="answer" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="model" optional="YES" attributeType="String"/>
         <attribute name="paraphrase" optional="YES" attributeType="String"/>
         <attribute name="question" optional="YES" attributeType="String"/>

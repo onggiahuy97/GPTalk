@@ -29,13 +29,13 @@ struct ChatWithAIApp: App {
                 .environmentObject(chatVM)
                 .environmentObject(appVM)
                 .environmentObject(userVM)
-                .task {
-                    do {
-                        userVM.offerings = try await Purchases.shared.offerings()
-                    } catch {
-                        print("Error fetching offerings \(error)")
-                    }
-                }
+//                .task {
+//                    do {
+//                        userVM.offerings = try await Purchases.shared.offerings()
+//                    } catch {
+//                        print("Error fetching offerings \(error)")
+//                    }
+//                }
         }
     }
 }
