@@ -23,6 +23,7 @@ class ChatGPTService {
 extension ChatGPTService {
     static let fixGrammarInstruction = "Fix grammar mistakes of the input"
     static let paraphraseTextInstruction = "Paraphrase the input"
+    static let generalError = "Something went wrong. Try again"
     
     func sendCompletion(with prompt: String, model: ChatGPTModelType = .gpt3(.davinci), maxTokens: Int = 16, completion: @escaping (Result<ChatGPT, ChatGPTError>) -> Void) {
         let endpoint = ChatGPTEndPoint.completions

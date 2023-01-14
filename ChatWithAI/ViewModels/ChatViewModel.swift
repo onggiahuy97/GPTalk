@@ -46,6 +46,7 @@ class ChatViewModel: ObservableObject {
     
     static let limitCharacters = 250
     static let limitToken = 250
+    static let defaultTokenKey = "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"
     
     private let editModelType = EditGPTModelType.edit(.davinci)
     private let userDefault = UserDefaults.standard
@@ -62,7 +63,7 @@ class ChatViewModel: ObservableObject {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
     }
-    @Published var token = "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" {
+    @Published var token = defaultTokenKey {
         didSet {
             userDefault.set(token, forKey: ModelSetting.token.rawValue)
         }
@@ -72,14 +73,16 @@ class ChatViewModel: ObservableObject {
         ChatGPTService(token: self.token)
     }()
     
-    init() {}
+    init() {
+        fetchCurrentSetting()
+    }
     
     func fetchChat(completion: @escaping (String) -> Void) {
         openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
             switch result {
             case .failure(let error):
                 print(error)
-                let errorText = "Something went wrong. Try again"
+                let errorText = ChatGPTService.generalError
                 completion(errorText)
             case .success(let openAIResult):
                 completion(self.filterResult(openAIResult))
@@ -101,32 +104,6 @@ class ChatViewModel: ObservableObject {
         text = ""
     }
     
-//    func fixGrammar(completion: @escaping (String) -> Void) {
-//        let instruction = ChatGPTService.fixGrammarInstruction
-//        openAI.sendEdits(with: instruction, input: text) { result in
-//            switch result {
-//            case .failure(let error):
-//                completion(error.localizedDescription)
-//            case .success(let openAIResult):
-//                completion(self.filterResult(openAIResult))
-//            }
-//        }
-//        text = ""
-//    }
-//
-//    func paraphraseText(completion: @escaping (String) -> Void) {
-//        let instruction = ChatGPTService.paraphraseTextInstruction
-//        openAI.sendEdits(with: instruction, input: text) { result in
-//            switch result {
-//            case .failure(let error):
-//                completion(error.localizedDescription)
-//            case .success(let openAIResult):
-//                completion(self.filterResult(openAIResult))
-//            }
-//        }
-//        text = ""
-//    }
-    
     private func filterResult(_ openAIResult: ChatGPT) -> String {
         var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if openAIResult.choices.first?.finishReason == "length" {
@@ -144,27 +121,14 @@ class ChatViewModel: ObservableObject {
         ModelSetting.allCases.forEach { type in
             switch type {
             case .maxTokens:
-                maxTokens = userDefault.integer(forKey: type.rawValue)
+                let value = userDefault.integer(forKey: type.rawValue)
+                maxTokens = value == 0 ? Self.limitToken : value
             case .modelType:
                 let value = userDefault.string(forKey: type.rawValue)
                 modelType = ChatGPTModelType.gpt3(.init(rawValue: value ?? "") ?? .davinci)
             case .token:
                 let value = userDefault.string(forKey: type.rawValue)
-                token = value ?? self.token
-            }
-        }
-    }
-    
-    // Waring: not working correctly
-    func updateCurrentSetting() {
-        ModelSetting.allCases.forEach { type in
-            switch type {
-            case .maxTokens:
-                userDefault.set(maxTokens, forKey: type.rawValue)
-            case .modelType:
-                userDefault.set(modelType.modelString, forKey: type.rawValue)
-            case .token:
-                userDefault.set(token, forKey: type.rawValue)
+                token = value ?? Self.defaultTokenKey
             }
         }
     }
