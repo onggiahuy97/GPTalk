@@ -57,7 +57,7 @@ struct SettingsView: View {
         } header: {
             Text("Tokens")
         } footer: {
-            Text(" Tokens can be words or just chunks of characters. For example, the word “hamburger” gets broken up into the tokens “ham”, “bur” and “ger”. Check out [**Tokenizer**](https://beta.openai.com/tokenizer) tool to learn more about how text translates to tokens.")
+            Text("Tokens can be words or just chunks of characters. The less tokens, the faster response. Check out [**Tokenizer**](https://beta.openai.com/tokenizer) tool to learn more about how text translates to tokens.")
         }
     }
     

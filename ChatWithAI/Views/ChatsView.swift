@@ -38,7 +38,7 @@ struct ChatsView: View {
     var textPrompt: String {
         switch chatVM.model {
         case .completions: return "Enter chat"
-        case .edits: return "Check grammar"
+        case .fixGrammar: return "Check grammar"
         case .pharaphrase: return "Paraphrasing text"
         }
     }
@@ -62,7 +62,7 @@ struct ChatsView: View {
                                 }
                                 .alert(isPresented: $showSubscription) {
                                     Alert.subscriptionAlert {
-                                        appVM.showSubscription = true 
+                                        appVM.showSubscription = true
                                     }
                                 }
                         }
@@ -91,29 +91,11 @@ struct ChatsView: View {
                             .lineLimit(3)
                             .focused($isTextFieldFocus)
                             .textFieldStyle(.roundedBorder)
-                            .onChange(of: isTextFieldFocus) { _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    withAnimation {
-                                        scrollProxy.scrollTo("last")
-                                    }
-                                }
-                            }
-                            .onChange(of: chats.count) { _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    withAnimation {
-                                        scrollProxy.scrollTo("last")
-                                    }
-                                }
-                            }
-                            .onChange(of: chats.last?.answer) { _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    withAnimation {
-                                        scrollProxy.scrollTo("last")
-                                    }
-                                }
-                            }
+                            .onChange(of: isTextFieldFocus) { _ in scrollToLast(scrollProxy) }
+                            .onChange(of: chats.count) { _ in scrollToLast(scrollProxy) }
+                            .onChange(of: chats.last?.answer) { _ in scrollToLast(scrollProxy) }
                             .onChange(of: chatVM.text) { newValue in
-                                if chatVM.model == .edits {
+                                if chatVM.model == .fixGrammar {
                                     if newValue.count > ChatViewModel.limitCharacters {
                                         chatVM.text = String(newValue.prefix(ChatViewModel.limitCharacters))
                                     }
@@ -152,6 +134,14 @@ struct ChatsView: View {
         }
     }
     
+    private func scrollToLast(_ scrollProxy: ScrollViewProxy) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation {
+                scrollProxy.scrollTo("last")
+            }
+        }
+    }
+    
     private func deleteUnansweredQuestions() {
         let unanswerQuestions = chats.filter { chat in
             (chat.answer ?? "").isEmpty || chat.answer == "Something went wrong. Try again"
@@ -187,19 +177,10 @@ struct ChatsView: View {
                     try? viewContext.save()
                 }
             }
-        case .edits:
-            chatVM.fixGrammar { result in
+        default:
+            chatVM.fetchEdits { result in
                 chat.answer = result
-                chat.model = "grammar"
-                DispatchQueue.main.async {
-                    self.isLoadingAnswer = false
-                    try? viewContext.save()
-                }
-            }
-        case .pharaphrase:
-            chatVM.paraphraseText { result in
-                chat.answer = result
-                chat.model = "paraphrase"
+                chat.model = chatVM.model.rawValue
                 DispatchQueue.main.async {
                     self.isLoadingAnswer = false
                     try? viewContext.save()

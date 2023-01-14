@@ -17,12 +17,12 @@ class ChatViewModel: ObservableObject {
     
     enum ModelType: String, CaseIterable, Identifiable {
         var id: String { self.rawValue }
-        case completions, edits, pharaphrase
+        case completions, fixGrammar, pharaphrase
         
         var name: String {
             switch self {
             case .completions: return "Chat"
-            case .edits: return "Fix Grammar"
+            case .fixGrammar: return "Fix Grammar"
             case .pharaphrase: return "Paraphrase"
             }
         }
@@ -30,8 +30,16 @@ class ChatViewModel: ObservableObject {
         var imageName: String {
             switch self {
             case .completions: return "ellipsis.bubble"
-            case .edits: return "checkmark.seal"
+            case .fixGrammar: return "checkmark.seal"
             case .pharaphrase: return "pencil.and.outline"
+            }
+        }
+        
+        var instruction: String {
+            switch self {
+            case .completions: return ""
+            case .pharaphrase : return ChatGPTService.paraphraseTextInstruction
+            case .fixGrammar: return ChatGPTService.fixGrammarInstruction
             }
         }
     }
@@ -71,7 +79,6 @@ class ChatViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 print(error)
-//                completion(error.localizedDescription)
                 let errorText = "Something went wrong. Try again"
                 completion(errorText)
             case .success(let openAIResult):
@@ -82,9 +89,8 @@ class ChatViewModel: ObservableObject {
         text = ""
     }
     
-    func fixGrammar(completion: @escaping (String) -> Void) {
-        let instruction = ChatGPTService.fixGrammarInstruction
-        openAI.sendEdits(with: instruction, input: text) { result in
+    func fetchEdits(completion: @escaping (String) -> Void) {
+        openAI.sendEdits(with: model.instruction, input: text) { result in
             switch result {
             case .failure(let error):
                 completion(error.localizedDescription)
@@ -95,25 +101,38 @@ class ChatViewModel: ObservableObject {
         text = ""
     }
     
-    func paraphraseText(completion: @escaping (String) -> Void) {
-        let instruction = ChatGPTService.paraphraseTextInstruction
-        openAI.sendEdits(with: instruction, input: text) { result in
-            switch result {
-            case .failure(let error):
-                completion(error.localizedDescription)
-            case .success(let openAIResult):
-                completion(self.filterResult(openAIResult))
-            }
-        }
-        text = ""
-    }
+//    func fixGrammar(completion: @escaping (String) -> Void) {
+//        let instruction = ChatGPTService.fixGrammarInstruction
+//        openAI.sendEdits(with: instruction, input: text) { result in
+//            switch result {
+//            case .failure(let error):
+//                completion(error.localizedDescription)
+//            case .success(let openAIResult):
+//                completion(self.filterResult(openAIResult))
+//            }
+//        }
+//        text = ""
+//    }
+//
+//    func paraphraseText(completion: @escaping (String) -> Void) {
+//        let instruction = ChatGPTService.paraphraseTextInstruction
+//        openAI.sendEdits(with: instruction, input: text) { result in
+//            switch result {
+//            case .failure(let error):
+//                completion(error.localizedDescription)
+//            case .success(let openAIResult):
+//                completion(self.filterResult(openAIResult))
+//            }
+//        }
+//        text = ""
+//    }
     
     private func filterResult(_ openAIResult: ChatGPT) -> String {
         var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         if openAIResult.choices.first?.finishReason == "length" {
             text.append("...\n\n...not enough tokens to get full answer")
         }
-        if model == .edits {
+        if model == .fixGrammar {
             text = "Correct - ".appending(text)
         } else if model == .pharaphrase {
             text = "Paraphrased - ".appending(text)
