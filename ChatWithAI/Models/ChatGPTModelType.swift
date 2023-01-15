@@ -20,9 +20,9 @@ enum ChatGPTModelType: Hashable {
     var maxTokens: String {
         switch self {
         case .gpt3(.davinci):
-            return "500"
-        default:
             return "1000"
+        default:
+            return "2000"
         }
     }
     

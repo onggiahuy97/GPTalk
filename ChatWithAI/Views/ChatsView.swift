@@ -11,6 +11,7 @@ struct ChatsView: View {
     
     @EnvironmentObject var chatVM: ChatViewModel
     @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var userVM: UserViewModel
     
     @Environment(\.managedObjectContext) var viewContext
     
@@ -21,6 +22,7 @@ struct ChatsView: View {
     @State private var isLoadingAnswer = false
     @State private var testSheet = false
     @State private var showSubscription = false
+    @State private var showExamples = false
     
     @FocusState private var isTextFieldFocus: Bool
     
@@ -86,37 +88,52 @@ struct ChatsView: View {
                             Image(systemName: "line.3.horizontal.decrease.circle.fill")
                                 .imageScale(.large)
                         }
-                        
-                        TextField(textPrompt, text: $chatVM.text, axis: .vertical)
-                            .lineLimit(3)
-                            .focused($isTextFieldFocus)
-                            .textFieldStyle(.roundedBorder)
-                            .onChange(of: isTextFieldFocus) { _ in scrollToLast(scrollProxy) }
-                            .onChange(of: chats.count) { _ in scrollToLast(scrollProxy) }
-                            .onChange(of: chats.last?.answer) { _ in scrollToLast(scrollProxy) }
-                            .onChange(of: chatVM.text) { newValue in
-                                if chatVM.model == .fixGrammar {
-                                    if newValue.count > ChatViewModel.limitCharacters {
-                                        chatVM.text = String(newValue.prefix(ChatViewModel.limitCharacters))
-                                    }
-                                }
-                            }
-                            .onAppear {
-                                scrollProxy.scrollTo("last")
-                                showInformation = appVM.isFirstLauch
-                                deleteUnansweredQuestions()
-                                
-                            }
-                        
-                        if !chatVM.text.isEmpty {
-                            Button {
-                                chatVM.text = ""
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.secondary)
-                                    .imageScale(.large)
+                        .onChange(of: chatVM.model) { newValue in
+                            if newValue != .completions {
+                                chatVM.modelType = .gpt3(.davinci)
+                                chatVM.maxTokens =
+                                userVM.subscriptionActive ? Int(ChatGPTModelType.gpt3(.davinci).maxTokens)! : ChatViewModel.limitToken
                             }
                         }
+                        
+                        HStack(alignment: .top) {
+                            TextField(textPrompt, text: $chatVM.text, axis: .vertical)
+                                .lineLimit(5)
+                                .focused($isTextFieldFocus)
+                                .onChange(of: isTextFieldFocus) { _ in scrollToLast(scrollProxy) }
+                                .onChange(of: chats.count) { _ in scrollToLast(scrollProxy) }
+                                .onChange(of: chats.last?.answer) { _ in scrollToLast(scrollProxy) }
+                                .onChange(of: chatVM.text) { newValue in
+                                    if chatVM.model != .completions {
+                                        if newValue.count > chatVM.maxTokens {
+                                            chatVM.text = String(newValue.prefix(chatVM.maxTokens))
+                                        }
+                                    }
+                                }
+                                .onAppear {
+                                    scrollProxy.scrollTo("last")
+                                    showInformation = appVM.isFirstLauch
+                                    deleteUnansweredQuestions()       
+                                }
+                            
+                            if !chatVM.text.isEmpty {
+                                Button {
+                                    chatVM.text = ""
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.secondary)
+                                        .imageScale(.large)
+                                }
+                            }
+                        }
+                        .padding(.leading, 10)
+                        .padding(.vertical, 5)
+                        .padding(.trailing, 5)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke()
+                                .foregroundColor(.secondary)
+                        )
                         
                         Button(action: onSubmitChat) {
                             Image(systemName: "paperplane.fill")
@@ -131,6 +148,19 @@ struct ChatsView: View {
                 }
             }
             .navigationTitle("GPTalk")
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        showExamples = true
+                    } label: {
+                        Image(systemName: "questionmark.bubble")
+                            .imageScale(.large)
+                    }
+                    .sheet(isPresented: $showExamples) {
+                        ExamplesView()
+                    }
+                }
+            }
         }
     }
     

@@ -44,8 +44,8 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    static let limitCharacters = 250
-    static let limitToken = 250
+    static let limitCharacters = 300
+    static let limitToken = 300
     static let defaultTokenKey = "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"
     
     private let editModelType = EditGPTModelType.edit(.davinci)

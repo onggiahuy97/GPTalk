@@ -168,7 +168,7 @@ struct SettingsView: View {
                 }
                 #warning("Beta testing")
                 payWallView
-                    .disabled(true)
+//                    .disabled(true)
 //                apiKeysView
                 maxTokensView
                 modelTypesView

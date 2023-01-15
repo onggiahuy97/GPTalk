@@ -44,7 +44,7 @@ struct InformationView: View {
                     .sheet(isPresented: $showPayWall) {
                         PayWall()
                     }
-                    .disabled(true)
+//                    .disabled(true)
                     #warning("Beta testing")
 
                     Spacer()
