@@ -44,7 +44,7 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    static let limitCharacters = 300
+    static let limitCharacters = 400
     static let limitToken = 300
     static let defaultTokenKey = "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"
     

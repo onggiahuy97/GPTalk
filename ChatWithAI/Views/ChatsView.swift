@@ -147,7 +147,7 @@ struct ChatsView: View {
                     .padding([.horizontal, .bottom])
                 }
             }
-            .navigationTitle("GPTalk")
+            .navigationTitle("AZUI")
             .toolbar {
                 ToolbarItem {
                     Button {
