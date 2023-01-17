@@ -16,13 +16,12 @@ enum ChatGPTModelType: Hashable {
         }
     }
     
-    #warning("Beta testing")
     var maxTokens: String {
         switch self {
         case .gpt3(.davinci):
-            return "1000"
+            return "4000"
         default:
-            return "2000"
+            return "2048"
         }
     }
     

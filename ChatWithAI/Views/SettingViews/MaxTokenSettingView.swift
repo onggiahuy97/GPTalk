@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MaxTokenSettingView: View {
     @EnvironmentObject var chatVM: ChatViewModel
-    @EnvironmentObject var userVM: UserViewModel
     @EnvironmentObject var appVM: AppViewModel
     
     @Environment(\.dismiss) var dismiss
@@ -33,22 +32,18 @@ struct MaxTokenSettingView: View {
                             .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
                     }
                     .onTapGesture {
-                        if userVM.subscriptionActive, let maxToken = Int(chatVM.modelType.maxTokens) {
-                            chatVM.modelType = ChatGPTModelType.gpt3(model)
-                            tokens = String(maxToken)
-                        } else {
-                            showSubscription = true
+                        chatVM.modelType = ChatGPTModelType.gpt3(model)
+                        if let maxTokens = Int(chatVM.modelType.maxTokens) {
+                            chatVM.maxTokens = maxTokens
                         }
                     }
                 }
-                
                 HStack(alignment: .center) {
                     Image(systemName: "exclamationmark.triangle")
                         .imageScale(.large)
                         .bold()
                     VStack(alignment: .leading) {
-                        Text("· Free version can set up to **\(ChatViewModel.limitToken)** tokens")
-                        Text("· Subscribers can set up to model's max token")
+                        Text("· The more tokens you set, the more words you get in your answer")
                     }
                 }
                 .padding(.top, 15)
@@ -73,24 +68,14 @@ struct MaxTokenSettingView: View {
                                 return
                             }
                             guard let value = Int(newValue) else { return }
-                            if userVM.subscriptionActive, let maxToken = Int(chatVM.modelType.maxTokens) {
+                            if let maxToken = Int(chatVM.modelType.maxTokens) {
                                 tokens = String(value > maxToken ? maxToken : value)
-                            } else {
-                                tokens = String(value > ChatViewModel.limitToken ? ChatViewModel.limitToken : value)
-                                if value > ChatViewModel.limitToken {
-                                    showSubscription = true
-                                }
                             }
                         }
                 }
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 12).stroke())
                 .padding(.vertical)
-                .alert(isPresented: $showSubscription) {
-                    Alert.subscriptionAlert {
-                        appVM.showSubscription = true
-                    }
-                }
             }
             .padding()
         }

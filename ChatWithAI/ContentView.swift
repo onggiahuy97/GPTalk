@@ -21,8 +21,9 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .sheet(isPresented: $appVM.showSubscription) {
-            PayWall()
+        .sheet(isPresented: $appVM.isFirstLauch) {
+            InformationView()
+                .onDisappear(perform: appVM.checkIfHasSeenBefore)
         }
     }
 }

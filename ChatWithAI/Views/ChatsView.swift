@@ -11,7 +11,6 @@ struct ChatsView: View {
     
     @EnvironmentObject var chatVM: ChatViewModel
     @EnvironmentObject var appVM: AppViewModel
-    @EnvironmentObject var userVM: UserViewModel
     
     @Environment(\.managedObjectContext) var viewContext
     
@@ -56,16 +55,11 @@ struct ChatsView: View {
                         }
                         
                         ForEach(chats) { chat in
-                            ChatMessageView(chat: chat, showSubscription: $showSubscription)
+                            ChatMessageView(chat: chat)
                                 .fullScreenCover(item: $appVM.urlItem, onDismiss: {
                                     appVM.urlItem = nil
                                 }) { item in
                                     WebView(url: item.url)
-                                }
-                                .alert(isPresented: $showSubscription) {
-                                    Alert.subscriptionAlert {
-                                        appVM.showSubscription = true
-                                    }
                                 }
                         }
                         .padding(.horizontal)
@@ -91,8 +85,6 @@ struct ChatsView: View {
                         .onChange(of: chatVM.model) { newValue in
                             if newValue != .completions {
                                 chatVM.modelType = .gpt3(.davinci)
-                                chatVM.maxTokens =
-                                userVM.subscriptionActive ? Int(ChatGPTModelType.gpt3(.davinci).maxTokens)! : ChatViewModel.limitToken
                             }
                         }
                         
@@ -147,7 +139,7 @@ struct ChatsView: View {
                     .padding([.horizontal, .bottom])
                 }
             }
-            .navigationTitle("AZUI")
+            .navigationTitle("GPTalk")
             .toolbar {
                 ToolbarItem {
                     Button {

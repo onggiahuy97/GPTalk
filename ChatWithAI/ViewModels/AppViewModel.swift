@@ -15,7 +15,7 @@ struct URLItem: Identifiable {
 class AppViewModel: ObservableObject {
     private let userDefault = UserDefaults.standard
     
-    @Published var showSubscription = false 
+    @Published var showSubscription = false
     @Published var isFirstLauch: Bool = false
     @Published var urlItem: URLItem?
     

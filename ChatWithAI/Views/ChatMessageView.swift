@@ -8,21 +8,11 @@
 import SwiftUI
 
 struct ChatMessageView: View {
-    @EnvironmentObject var appVM: AppViewModel
-    @EnvironmentObject var userVM: UserViewModel
-    
     @Environment(\.managedObjectContext) var viewContext
     
+    @EnvironmentObject var appVM: AppViewModel
+    
     @ObservedObject var chat: ChatMessage
-    
-    @State private var showMoreInformation = false
-    
-    @Binding var showSubscription: Bool
-    
-    var smartInfos: [SmartInfo] {
-        return (chat.answer?.getRangeOfPersonName() ?? [])
-            .sorted(by: { $0.tag.rawValue < $1.tag.rawValue })
-    }
     
     var menuView: some View {
         Menu {
@@ -36,13 +26,9 @@ struct ChatMessageView: View {
             
             Button(role: .destructive) {
                 DispatchQueue.main.async {
-                    if userVM.subscriptionActive {
-                        withAnimation {
-                            viewContext.delete(chat)
-                            try? viewContext.save()
-                        }
-                    } else {
-                        self.showSubscription = true
+                    withAnimation {
+                        viewContext.delete(chat)
+                        try? viewContext.save()
                     }
                 }
             } label: {
@@ -63,8 +49,6 @@ struct ChatMessageView: View {
             HStack {
                 makeCircleImage(systemName: "person.fill.questionmark")
                 Spacer()
-//                Text((chat.date ?? Date()).toString())
-//                    .font(.footnote)
                 menuView
             }
             
@@ -84,19 +68,11 @@ struct ChatMessageView: View {
                 
                 Spacer()
                 
-                if chat.answer != nil, !smartInfos.isEmpty {
-                    // Add machine learning here
-                }
-                
             }
             
             Text(chat.answer ?? "")
                 .textSelection(.enabled)
             
-            #warning("Paraphrasing feature will come later")
-            if let paraphrase = chat.paraphrase {
-                
-            }
         }
         .padding()
         .foregroundColor(.accentColor)

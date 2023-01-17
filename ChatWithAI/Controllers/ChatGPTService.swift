@@ -13,7 +13,7 @@ enum ChatGPTError: Error {
 }
 
 class ChatGPTService {
-    fileprivate(set) var token: String?
+    var token: String?
     
     init(token: String? = nil) {
         self.token = token
@@ -25,7 +25,7 @@ extension ChatGPTService {
     static let paraphraseTextInstruction = "Paraphrase the input"
     static let generalError = "Something went wrong. Try again"
     
-    func sendCompletion(with prompt: String, model: ChatGPTModelType = .gpt3(.davinci), maxTokens: Int = 16, completion: @escaping (Result<ChatGPT, ChatGPTError>) -> Void) {
+    func sendCompletion(with prompt: String, model: ChatGPTModelType = .gpt3(.davinci), maxTokens: Int, completion: @escaping (Result<ChatGPT, ChatGPTError>) -> Void) {
         let endpoint = ChatGPTEndPoint.completions
         let body = ChatGPTCommand(prompt: prompt, model: model.modelString, maxTokens: maxTokens)
         let request = makeURLRequest(endpoint: endpoint, body: body)

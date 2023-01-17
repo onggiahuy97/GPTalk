@@ -9,21 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appVM: AppViewModel
-    @EnvironmentObject var userVM: UserViewModel
     
     @Environment(\.managedObjectContext) var viewContext
-    @State private var showSubscription = false
-    var payWallView: some View {
-        Section {
-            makeRow(title: "Subscriptions", systemName: "lock.fill", color: .red) {
-                PayWall()
-            }
-        } header: {
-            Text("Subscription")
-        } footer: {
-            Text("You can choose any subscriptions you'd like to unlock full potential of the app :)")
-        }
-    }
     
     var apiKeysView: some View {
         Section {
@@ -80,7 +67,7 @@ struct SettingsView: View {
     
     var chatgpt3View: some View {
         Section {
-            Button("Free Version Info") {
+            Button("Current Setting") {
                 showInformation.toggle()
             }
             .sheet(isPresented: $showInformation) {
@@ -125,56 +112,31 @@ struct SettingsView: View {
     var generalSettingView: some View {
         Section {
             Button("Clear All History Chats") {
-                if userVM.subscriptionActive {
-                    let chatsRequest = ChatMessage.fetchRequest()
-                    do {
-                        let chats = try viewContext.fetch(chatsRequest)
-                        chats.forEach {
-                            viewContext.delete($0)
-                        }
-                        try viewContext.save()
-                    } catch {
-                        print("Error \(error.localizedDescription)")
-                        return
+                let chatsRequest = ChatMessage.fetchRequest()
+                do {
+                    let chats = try viewContext.fetch(chatsRequest)
+                    chats.forEach {
+                        viewContext.delete($0)
                     }
-                } else {
-                    self.showSubscription = true
+                    try viewContext.save()
+                } catch {
+                    print("Error \(error.localizedDescription)")
+                    return
                 }
             }
             .foregroundColor(.blue)
-            .alert(isPresented: $showSubscription) {
-                Alert.subscriptionAlert {
-                    appVM.showSubscription = true
-                }
-            }
         }
     }
     
     var body: some View {
         NavigationStack {
             Form {
-                if userVM.subscriptionActive {
-                    Section {} header: {} footer: {
-                        HStack {
-                            Spacer()
-                            VStack(alignment: .center) {
-                                Text("Pro subscription")
-                                Text("Thank you for being a subscriber ♥️")
-                            }
-                            Spacer()
-                        }
-                        .multilineTextAlignment(.center)
-                    }
-                }
-                #warning("Beta testing")
-                payWallView
-//                    .disabled(true)
-//                apiKeysView
+                aboutMeView
+                apiKeysView
                 maxTokensView
                 modelTypesView
                 chatgpt3View
                 generalSettingView
-                aboutMeView
             }
             .navigationTitle("Settings")
             

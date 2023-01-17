@@ -7,48 +7,12 @@
 
 import Foundation
 
+let defaultTokenKey = "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"
+
 class ChatViewModel: ObservableObject {
+
+    static let limitToken = 2000
     
-    enum ModelSetting: String, CaseIterable {
-        case modelType
-        case maxTokens
-        case token
-    }
-    
-    enum ModelType: String, CaseIterable, Identifiable {
-        var id: String { self.rawValue }
-        case completions, fixGrammar, pharaphrase
-        
-        var name: String {
-            switch self {
-            case .completions: return "Chat"
-            case .fixGrammar: return "Fix Grammar"
-            case .pharaphrase: return "Paraphrase"
-            }
-        }
-        
-        var imageName: String {
-            switch self {
-            case .completions: return "ellipsis.bubble"
-            case .fixGrammar: return "checkmark.seal"
-            case .pharaphrase: return "pencil.and.outline"
-            }
-        }
-        
-        var instruction: String {
-            switch self {
-            case .completions: return ""
-            case .pharaphrase : return ChatGPTService.paraphraseTextInstruction
-            case .fixGrammar: return ChatGPTService.fixGrammarInstruction
-            }
-        }
-    }
-    
-    static let limitCharacters = 400
-    static let limitToken = 300
-    static let defaultTokenKey = "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"
-    
-    private let editModelType = EditGPTModelType.edit(.davinci)
     private let userDefault = UserDefaults.standard
 
     @Published var model = ModelType.completions
@@ -63,21 +27,21 @@ class ChatViewModel: ObservableObject {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
     }
-    @Published var token = defaultTokenKey {
+    @Published var token = "ADD YOUR API KEY HERE" {
         didSet {
             userDefault.set(token, forKey: ModelSetting.token.rawValue)
+            openAI.token = token
         }
     }
     
-    lazy var openAI: ChatGPTService = {
-        ChatGPTService(token: self.token)
-    }()
+    private var openAI = ChatGPTService()
     
     init() {
         fetchCurrentSetting()
     }
     
     func fetchChat(completion: @escaping (String) -> Void) {
+        let openAI = ChatGPTService(token: defaultTokenKey)
         openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
             switch result {
             case .failure(let error):
@@ -128,7 +92,44 @@ class ChatViewModel: ObservableObject {
                 modelType = ChatGPTModelType.gpt3(.init(rawValue: value ?? "") ?? .davinci)
             case .token:
                 let value = userDefault.string(forKey: type.rawValue)
-                token = value ?? Self.defaultTokenKey
+                token = value ?? self.token
+            }
+        }
+    }
+}
+
+extension ChatViewModel {
+    enum ModelSetting: String, CaseIterable {
+        case modelType
+        case maxTokens
+        case token
+    }
+    
+    enum ModelType: String, CaseIterable, Identifiable {
+        var id: String { self.rawValue }
+        case completions, fixGrammar, pharaphrase
+        
+        var name: String {
+            switch self {
+            case .completions: return "Chat"
+            case .fixGrammar: return "Fix Grammar"
+            case .pharaphrase: return "Paraphrase"
+            }
+        }
+        
+        var imageName: String {
+            switch self {
+            case .completions: return "ellipsis.bubble"
+            case .fixGrammar: return "checkmark.seal"
+            case .pharaphrase: return "pencil.and.outline"
+            }
+        }
+        
+        var instruction: String {
+            switch self {
+            case .completions: return ""
+            case .pharaphrase : return ChatGPTService.paraphraseTextInstruction
+            case .fixGrammar: return ChatGPTService.fixGrammarInstruction
             }
         }
     }
