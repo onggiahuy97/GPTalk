@@ -19,6 +19,33 @@
 		3E255C2F296DDF6800B0E987 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2E296DDF6800B0E987 /* SafariWebView.swift */; };
 		3E255C31296DDFD300B0E987 /* MaxTokenSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */; };
 		3E255C33296DDFF300B0E987 /* ModelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C32296DDFF300B0E987 /* ModelPickerView.swift */; };
+		3E6AD9212976745C00D9D777 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AD9202976745C00D9D777 /* ContentView.swift */; };
+		3E6AD9232976745E00D9D777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6AD9222976745D00D9D777 /* Assets.xcassets */; };
+		3E6AD9262976745E00D9D777 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6AD9252976745E00D9D777 /* Preview Assets.xcassets */; };
+		3E6AD92B2976748100D9D777 /* ChatWithAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */; };
+		3E6AD92C297674AE00D9D777 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1A129667E2500A0AF8B /* String+Extension.swift */; };
+		3E6AD92D297674AE00D9D777 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E151B672968FE39007D4311 /* Date+Extension.swift */; };
+		3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
+		3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */; };
+		3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */; };
+		3E6AD931297674AE00D9D777 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */; };
+		3E6AD932297674AE00D9D777 /* ExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99418729724DD80043F238 /* ExamplesView.swift */; };
+		3E6AD933297674AE00D9D777 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1992965D9B700A0AF8B /* SettingsView.swift */; };
+		3E6AD934297674AE00D9D777 /* APIKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C29296DC30500B0E987 /* APIKeysView.swift */; };
+		3E6AD935297674AE00D9D777 /* MaxTokenSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */; };
+		3E6AD936297674AE00D9D777 /* ModelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C32296DDFF300B0E987 /* ModelPickerView.swift */; };
+		3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
+		3E6AD938297674AE00D9D777 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19D2965FEEB00A0AF8B /* AppViewModel.swift */; };
+		3E6AD939297674AE00D9D777 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1912964C73300A0AF8B /* DataController.swift */; };
+		3E6AD93A297674AE00D9D777 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19105129647B9600FBCBC4 /* ChatGPTService.swift */; };
+		3E6AD93B297674AE00D9D777 /* ChatGPTCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */; };
+		3E6AD93C297674AE00D9D777 /* ChatGPTModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA185296489F800A0AF8B /* ChatGPTModelType.swift */; };
+		3E6AD93D297674AE00D9D777 /* EditGPTInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */; };
+		3E6AD93E297674AE00D9D777 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA187296491C800A0AF8B /* ChatGPT.swift */; };
+		3E6AD93F297674AE00D9D777 /* ChatGPTEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA189296491F600A0AF8B /* ChatGPTEndpoint.swift */; };
+		3E6AD940297674AE00D9D777 /* EditGPTModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBD296C636200255649 /* EditGPTModelType.swift */; };
+		3E6AD941297674AE00D9D777 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99418929724EDE0043F238 /* Example.swift */; };
+		3E6AD943297674AE00D9D777 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA18D2964C6D200A0AF8B /* Main.xcdatamodeld */; };
 		3E99418829724DD80043F238 /* ExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99418729724DD80043F238 /* ExamplesView.swift */; };
 		3E99418A29724EDE0043F238 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99418929724EDE0043F238 /* Example.swift */; };
 		3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */; };
@@ -39,7 +66,6 @@
 
 /* Begin PBXFileReference section */
 		3E151B672968FE39007D4311 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		3E151B69296B1316007D4311 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3E1910362963AEC200FBCBC4 /* ChatWithAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatWithAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWithAIApp.swift; sourceTree = "<group>"; };
 		3E19103D2963AEC300FBCBC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,9 +78,14 @@
 		3E255C2E296DDF6800B0E987 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxTokenSettingView.swift; sourceTree = "<group>"; };
 		3E255C32296DDFF300B0E987 /* ModelPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPickerView.swift; sourceTree = "<group>"; };
+		3E6AD91C2976745C00D9D777 /* MacGPTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacGPTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E6AD9202976745C00D9D777 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3E6AD9222976745D00D9D777 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E6AD9252976745E00D9D777 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3E6AD9272976745E00D9D777 /* MacGPTalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacGPTalk.entitlements; sourceTree = "<group>"; };
+		3E6AD9442976782E00D9D777 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E99418729724DD80043F238 /* ExamplesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesView.swift; sourceTree = "<group>"; };
 		3E99418929724EDE0043F238 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
-		3E99418B2973C5D20043F238 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3EBC8DBB296C5F1D00255649 /* EditGPTInstruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTInstruction.swift; sourceTree = "<group>"; };
 		3EBC8DBD296C636200255649 /* EditGPTModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGPTModelType.swift; sourceTree = "<group>"; };
 		3EDCA183296489DC00A0AF8B /* ChatGPTCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTCommand.swift; sourceTree = "<group>"; };
@@ -68,13 +99,18 @@
 		3EDCA1992965D9B700A0AF8B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		3EDCA19D2965FEEB00A0AF8B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
-		3EDCA19F296657EB00A0AF8B /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3EDCA1A129667E2500A0AF8B /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		3EDCA1A729672B9400A0AF8B /* TestNetowrk.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestNetowrk.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3E1910332963AEC200FBCBC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E6AD9192976745C00D9D777 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -88,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				3E1910382963AEC200FBCBC4 /* ChatWithAI */,
+				3E6AD91D2976745C00D9D777 /* MacGPTalk */,
 				3E1910372963AEC200FBCBC4 /* Products */,
 				3E5AE999296E414600D5E919 /* Frameworks */,
 			);
@@ -97,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				3E1910362963AEC200FBCBC4 /* ChatWithAI.app */,
+				3E6AD91C2976745C00D9D777 /* MacGPTalk.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,7 +142,7 @@
 		3E1910382963AEC200FBCBC4 /* ChatWithAI */ = {
 			isa = PBXGroup;
 			children = (
-				3E151B69296B1316007D4311 /* Info.plist */,
+				3E6AD9442976782E00D9D777 /* Info.plist */,
 				3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */,
 				3E19104C2963AF1900FBCBC4 /* ContentView.swift */,
 				3EDCA1A029667E1A00A0AF8B /* Helpers */,
@@ -114,8 +152,6 @@
 				3E19105029647B6500FBCBC4 /* Models */,
 				3E19103D2963AEC300FBCBC4 /* Assets.xcassets */,
 				3EDCA18D2964C6D200A0AF8B /* Main.xcdatamodeld */,
-				3E99418B2973C5D20043F238 /* MyPlayground.playground */,
-				3EDCA1A729672B9400A0AF8B /* TestNetowrk.playground */,
 				3E19103F2963AEC300FBCBC4 /* Preview Content */,
 			);
 			path = ChatWithAI;
@@ -125,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				3E1910402963AEC300FBCBC4 /* Preview Assets.xcassets */,
-				3EDCA19F296657EB00A0AF8B /* MyPlayground.playground */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -169,6 +204,25 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3E6AD91D2976745C00D9D777 /* MacGPTalk */ = {
+			isa = PBXGroup;
+			children = (
+				3E6AD9202976745C00D9D777 /* ContentView.swift */,
+				3E6AD9222976745D00D9D777 /* Assets.xcassets */,
+				3E6AD9272976745E00D9D777 /* MacGPTalk.entitlements */,
+				3E6AD9242976745E00D9D777 /* Preview Content */,
+			);
+			path = MacGPTalk;
+			sourceTree = "<group>";
+		};
+		3E6AD9242976745E00D9D777 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3E6AD9252976745E00D9D777 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		3EDCA1902964C71300A0AF8B /* Controllers */ = {
@@ -233,6 +287,23 @@
 			productReference = 3E1910362963AEC200FBCBC4 /* ChatWithAI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3E6AD91B2976745C00D9D777 /* MacGPTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E6AD9282976745E00D9D777 /* Build configuration list for PBXNativeTarget "MacGPTalk" */;
+			buildPhases = (
+				3E6AD9182976745C00D9D777 /* Sources */,
+				3E6AD9192976745C00D9D777 /* Frameworks */,
+				3E6AD91A2976745C00D9D777 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacGPTalk;
+			productName = MacGPTalk;
+			productReference = 3E6AD91C2976745C00D9D777 /* MacGPTalk.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -244,6 +315,9 @@
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					3E1910352963AEC200FBCBC4 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					3E6AD91B2976745C00D9D777 = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -264,6 +338,7 @@
 			projectRoot = "";
 			targets = (
 				3E1910352963AEC200FBCBC4 /* ChatWithAI */,
+				3E6AD91B2976745C00D9D777 /* MacGPTalk */,
 			);
 		};
 /* End PBXProject section */
@@ -275,6 +350,15 @@
 			files = (
 				3E1910412963AEC300FBCBC4 /* Preview Assets.xcassets in Resources */,
 				3E19103E2963AEC300FBCBC4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E6AD91A2976745C00D9D777 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E6AD9262976745E00D9D777 /* Preview Assets.xcassets in Resources */,
+				3E6AD9232976745E00D9D777 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +395,38 @@
 				3E151B682968FE39007D4311 /* Date+Extension.swift in Sources */,
 				3EDCA19A2965D9B700A0AF8B /* SettingsView.swift in Sources */,
 				3E255C2C296DDB3700B0E987 /* View+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E6AD9182976745C00D9D777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E6AD92C297674AE00D9D777 /* String+Extension.swift in Sources */,
+				3E6AD92D297674AE00D9D777 /* Date+Extension.swift in Sources */,
+				3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */,
+				3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */,
+				3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */,
+				3E6AD931297674AE00D9D777 /* InformationView.swift in Sources */,
+				3E6AD932297674AE00D9D777 /* ExamplesView.swift in Sources */,
+				3E6AD933297674AE00D9D777 /* SettingsView.swift in Sources */,
+				3E6AD934297674AE00D9D777 /* APIKeysView.swift in Sources */,
+				3E6AD935297674AE00D9D777 /* MaxTokenSettingView.swift in Sources */,
+				3E6AD936297674AE00D9D777 /* ModelPickerView.swift in Sources */,
+				3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */,
+				3E6AD938297674AE00D9D777 /* AppViewModel.swift in Sources */,
+				3E6AD939297674AE00D9D777 /* DataController.swift in Sources */,
+				3E6AD93A297674AE00D9D777 /* ChatGPTService.swift in Sources */,
+				3E6AD93B297674AE00D9D777 /* ChatGPTCommand.swift in Sources */,
+				3E6AD93C297674AE00D9D777 /* ChatGPTModelType.swift in Sources */,
+				3E6AD93D297674AE00D9D777 /* EditGPTInstruction.swift in Sources */,
+				3E6AD93E297674AE00D9D777 /* ChatGPT.swift in Sources */,
+				3E6AD93F297674AE00D9D777 /* ChatGPTEndpoint.swift in Sources */,
+				3E6AD940297674AE00D9D777 /* EditGPTModelType.swift in Sources */,
+				3E6AD941297674AE00D9D777 /* Example.swift in Sources */,
+				3E6AD943297674AE00D9D777 /* Main.xcdatamodeld in Sources */,
+				3E6AD9212976745C00D9D777 /* ContentView.swift in Sources */,
+				3E6AD92B2976748100D9D777 /* ChatWithAIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -421,7 +537,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -438,7 +554,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ChatWithAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "ChatWithAI/Preview\\ Content";
 				DEVELOPMENT_TEAM = B6LXP9JCNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -458,7 +574,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,7 +588,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ChatWithAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "ChatWithAI/Preview\\ Content";
 				DEVELOPMENT_TEAM = B6LXP9JCNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -492,10 +608,68 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3E6AD9292976745E00D9D777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacGPTalk/MacGPTalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MacGPTalk/Preview Content\"";
+				DEVELOPMENT_TEAM = B6LXP9JCNK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HuyOng.GPTalk.MacGPTalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3E6AD92A2976745E00D9D777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MacGPTalk/MacGPTalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MacGPTalk/Preview Content\"";
+				DEVELOPMENT_TEAM = B6LXP9JCNK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HuyOng.GPTalk.MacGPTalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -516,6 +690,15 @@
 			buildConfigurations = (
 				3E1910452963AEC300FBCBC4 /* Debug */,
 				3E1910462963AEC300FBCBC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3E6AD9282976745E00D9D777 /* Build configuration list for PBXNativeTarget "MacGPTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E6AD9292976745E00D9D777 /* Debug */,
+				3E6AD92A2976745E00D9D777 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

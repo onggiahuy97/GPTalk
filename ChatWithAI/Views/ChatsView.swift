@@ -49,6 +49,8 @@ struct ChatsView: View {
             ScrollViewReader { scrollProxy in
                 VStack(alignment: .leading) {
                     ScrollView {
+                        Spacer()
+                            .frame(height: 10)
                         
                         if chats.isEmpty {
                             presentEmptyChatView
@@ -56,11 +58,13 @@ struct ChatsView: View {
                         
                         ForEach(chats) { chat in
                             ChatMessageView(chat: chat)
+                        #if os(iOS)
                                 .fullScreenCover(item: $appVM.urlItem, onDismiss: {
                                     appVM.urlItem = nil
                                 }) { item in
                                     WebView(url: item.url)
                                 }
+                        #endif
                         }
                         .padding(.horizontal)
                         
@@ -71,61 +75,40 @@ struct ChatsView: View {
                     .scrollDismissesKeyboard(.immediately)
                     
                     HStack {
-                        Menu {
-                            Picker("Model", selection: $chatVM.model) {
-                                ForEach(ChatViewModel.ModelType.allCases) { model in
-                                    Label(model.name, systemImage: model.imageName)
-                                        .tag(model)
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                                .imageScale(.large)
-                        }
-                        .onChange(of: chatVM.model) { newValue in
-                            if newValue != .completions {
-                                chatVM.modelType = .gpt3(.davinci)
-                            }
-                        }
-                        
-                        HStack(alignment: .top) {
-                            TextField(textPrompt, text: $chatVM.text, axis: .vertical)
-                                .lineLimit(5)
-                                .focused($isTextFieldFocus)
-                                .onChange(of: isTextFieldFocus) { _ in scrollToLast(scrollProxy) }
-                                .onChange(of: chats.count) { _ in scrollToLast(scrollProxy) }
-                                .onChange(of: chats.last?.answer) { _ in scrollToLast(scrollProxy) }
-                                .onChange(of: chatVM.text) { newValue in
-                                    if chatVM.model != .completions {
-                                        if newValue.count > chatVM.maxTokens {
-                                            chatVM.text = String(newValue.prefix(chatVM.maxTokens))
-                                        }
+                        TextField(textPrompt, text: $chatVM.text, axis: .vertical)
+                            .lineLimit(5)
+                            .focused($isTextFieldFocus)
+                            .textFieldStyle(.roundedBorder)
+                            .onChange(of: isTextFieldFocus) { _ in scrollToLast(scrollProxy) }
+                            .onChange(of: chats.count) { _ in scrollToLast(scrollProxy) }
+                            .onChange(of: chats.last?.answer) { _ in scrollToLast(scrollProxy) }
+                            .onChange(of: chatVM.text) { newValue in
+                                if chatVM.model != .completions {
+                                    if newValue.count > chatVM.maxTokens {
+                                        chatVM.text = String(newValue.prefix(chatVM.maxTokens))
                                     }
                                 }
-                                .onAppear {
-                                    scrollProxy.scrollTo("last")
-                                    showInformation = appVM.isFirstLauch
-                                    deleteUnansweredQuestions()       
-                                }
-                            
-                            if !chatVM.text.isEmpty {
-                                Button {
-                                    chatVM.text = ""
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.secondary)
-                                        .imageScale(.large)
-                                }
+                            }
+                            .onAppear {
+                                scrollProxy.scrollTo("last")
+                                showInformation = appVM.isFirstLauch
+                                deleteUnansweredQuestions()
+                            }
+                        #if os(macOS)
+                            .onSubmit {
+                                onSubmitChat()
+                            }
+                        #endif
+                        
+                        if !chatVM.text.isEmpty {
+                            Button {
+                                chatVM.text = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.secondary)
+                                    .imageScale(.large)
                             }
                         }
-                        .padding(.leading, 10)
-                        .padding(.vertical, 5)
-                        .padding(.trailing, 5)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke()
-                                .foregroundColor(.secondary)
-                        )
                         
                         Button(action: onSubmitChat) {
                             Image(systemName: "paperplane.fill")
@@ -139,9 +122,12 @@ struct ChatsView: View {
                     .padding([.horizontal, .bottom])
                 }
             }
+            .background(Color.white)
             .navigationTitle("GPTalk")
             .toolbar {
-                ToolbarItem {
+                
+                #if os(iOS)
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         showExamples = true
                     } label: {
@@ -152,6 +138,43 @@ struct ChatsView: View {
                         ExamplesView()
                     }
                 }
+                #endif
+                
+                ToolbarItem {
+                    Menu {
+                        Picker("Model", selection: $chatVM.model) {
+                            ForEach(ChatViewModel.ModelType.allCases) { model in
+                                Button {
+                                    chatVM.model = model
+                                } label: {
+                                    Label(model.name, systemImage: model.imageName)
+                                    
+                                }
+                                .tag(model)
+                            }
+                        }
+                        .pickerStyle(.inline)
+                    } label: {
+                        Label("", systemImage: "line.3.horizontal.decrease.circle.fill")
+                            .imageScale(.large)
+                    }
+                    .onChange(of: chatVM.model) { newValue in
+                        if newValue != .completions {
+                            chatVM.modelType = .gpt3(.davinci)
+                        }
+                    }
+                }
+                
+                #if os(macOS)
+                ToolbarItem {
+                    Button {
+                        chats.forEach { viewContext.delete($0) }
+                        try? viewContext.save()
+                    } label: {
+                        Image(systemName: "trash")
+                    }
+                }
+                #endif
             }
         }
     }
@@ -177,8 +200,10 @@ struct ChatsView: View {
     private func onSubmitChat() {
         guard !chatVM.text.isEmpty else { return }
         
+#if os(iOS)
         let impact = UIImpactFeedbackGenerator(style: .light)
         impact.impactOccurred()
+#endif
         
         isLoadingAnswer = true
         isTextFieldFocus = true

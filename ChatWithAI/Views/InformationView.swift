@@ -12,7 +12,7 @@ struct InformationView: View {
     
     @EnvironmentObject var chatVM: ChatViewModel
     
-    @State private var showPayWall = false
+    @State private var showAddAPIKey = false
     
     var body: some View {
         NavigationStack {
@@ -25,7 +25,7 @@ struct InformationView: View {
                     makeRow(header: "Grammar and Paraphrase", content: "The model can fix work up to \(chatVM.maxTokens) characters", systemName: "checkmark.circle")
                     
                     Button {
-                        
+                        showAddAPIKey = true
                     } label: {
                         VStack {
                             Text("Add Your API Key")
@@ -40,11 +40,15 @@ struct InformationView: View {
                         .background(Color.blue)
                         .cornerRadius(12)
                     }
+                    .sheet(isPresented: $showAddAPIKey) {
+                        APIKeysView()
+                    }
 
                     Spacer()
                 }
                 .padding(30)
                 .navigationTitle("Current Setting")
+                #if os(iOS)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -54,6 +58,7 @@ struct InformationView: View {
                         }
                     }
                 }
+                #endif
             }
         }
     }

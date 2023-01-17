@@ -18,6 +18,7 @@ struct ChatWithAIApp: App {
                 .environment(\.managedObjectContext, DataController.shared.container.viewContext)
                 .environmentObject(chatVM)
                 .environmentObject(appVM)
+                
         }
     }
 }

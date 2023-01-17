@@ -27,21 +27,20 @@ class ChatViewModel: ObservableObject {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
     }
-    @Published var token = "ADD YOUR API KEY HERE" {
+    @Published var token = defaultTokenKey {
         didSet {
             userDefault.set(token, forKey: ModelSetting.token.rawValue)
             openAI.token = token
         }
     }
     
-    private var openAI = ChatGPTService()
+    private let openAI = ChatGPTService()
     
     init() {
         fetchCurrentSetting()
     }
     
     func fetchChat(completion: @escaping (String) -> Void) {
-        let openAI = ChatGPTService(token: defaultTokenKey)
         openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
             switch result {
             case .failure(let error):
