@@ -28,12 +28,6 @@
 		3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
 		3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */; };
 		3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */; };
-		3E6AD931297674AE00D9D777 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */; };
-		3E6AD932297674AE00D9D777 /* ExamplesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99418729724DD80043F238 /* ExamplesView.swift */; };
-		3E6AD933297674AE00D9D777 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1992965D9B700A0AF8B /* SettingsView.swift */; };
-		3E6AD934297674AE00D9D777 /* APIKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C29296DC30500B0E987 /* APIKeysView.swift */; };
-		3E6AD935297674AE00D9D777 /* MaxTokenSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C30296DDFD300B0E987 /* MaxTokenSettingView.swift */; };
-		3E6AD936297674AE00D9D777 /* ModelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C32296DDFF300B0E987 /* ModelPickerView.swift */; };
 		3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
 		3E6AD938297674AE00D9D777 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19D2965FEEB00A0AF8B /* AppViewModel.swift */; };
 		3E6AD939297674AE00D9D777 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1912964C73300A0AF8B /* DataController.swift */; };
@@ -413,12 +407,6 @@
 				3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */,
 				3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */,
 				3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */,
-				3E6AD931297674AE00D9D777 /* InformationView.swift in Sources */,
-				3E6AD932297674AE00D9D777 /* ExamplesView.swift in Sources */,
-				3E6AD933297674AE00D9D777 /* SettingsView.swift in Sources */,
-				3E6AD934297674AE00D9D777 /* APIKeysView.swift in Sources */,
-				3E6AD935297674AE00D9D777 /* MaxTokenSettingView.swift in Sources */,
-				3E6AD936297674AE00D9D777 /* ModelPickerView.swift in Sources */,
 				3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */,
 				3E6AD938297674AE00D9D777 /* AppViewModel.swift in Sources */,
 				3E6AD939297674AE00D9D777 /* DataController.swift in Sources */,
@@ -635,6 +623,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools\npublic.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -664,6 +653,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools\npublic.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

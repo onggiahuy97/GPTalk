@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExampleRowView: View {
+    
     let example: Example
     
     var body: some View {

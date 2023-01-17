@@ -100,6 +100,7 @@ struct ChatsView: View {
                             }
                         #endif
                         
+                        
                         if !chatVM.text.isEmpty {
                             Button {
                                 chatVM.text = ""
@@ -118,12 +119,23 @@ struct ChatsView: View {
                         }
                         .disabled(isLoadingAnswer)
                         
+                        
+                        
                     }
                     .padding([.horizontal, .bottom])
                 }
             }
+            
+            #if os(macOS)
             .background(Color.white)
+            #endif
+            
             .navigationTitle("GPTalk")
+
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            
             .toolbar {
                 
                 #if os(iOS)

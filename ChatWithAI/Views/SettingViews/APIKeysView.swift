@@ -10,10 +10,13 @@ import SwiftUI
 struct APIKeysView: View {
     @EnvironmentObject var chatVM: ChatViewModel
     
+    @Environment(\.dismiss) var dismiss
+    
     @State private var token = ""
     @State private var errorMess = ""
     @State private var showAlert = false
     @State private var showErrorMess = false
+    @State private var showTesting = false
     
     var body: some View {
         NavigationStack {
@@ -43,6 +46,7 @@ struct APIKeysView: View {
                 
                 Section {
                     Button {
+                        showTesting = true
                         chatVM.text = "Tell me a joke"
                         chatVM.modelType = .gpt3(.davinci)
                         chatVM.model = .completions
@@ -53,15 +57,12 @@ struct APIKeysView: View {
                                 self.errorMess = "Your API key words successfully"
                             }
                             showErrorMess = true
+                            showTesting = false
                         }
                         chatVM.text = ""
                     } label: {
-                        Text("Test your current API key")
-//                            .padding(10)
-//                            .foregroundColor(.white)
-//                            .background(.blue)
-//                            .cornerRadius(8)
-//                            .frame(maxWidth: .infinity, alignment: .center)
+                        Text(showTesting ? "Testing..." : "Test your current API key")
+                            .frame(maxWidth: .infinity, alignment: .center)
                     }
                     .alert(self.errorMess, isPresented: $showErrorMess) {
                         Button(role: .cancel) {
@@ -73,7 +74,8 @@ struct APIKeysView: View {
             .navigationTitle("API Key")
             .toolbar {
                 ToolbarItem {
-                    Button("Save") {
+                    Button(token.isEmpty ? "Done" : "Save") {
+                        if token.isEmpty { self.dismiss() }
                         guard !token.isEmpty else { return }
                         chatVM.token = token
                         showAlert = true

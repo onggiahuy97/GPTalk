@@ -7,7 +7,8 @@
 
 import Foundation
 
-let defaultTokenKey = "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"
+// Visit https://beta.openai.com/account/api-keys to get your private API Key
+let defaultTokenKey = "Your API Key"
 
 class ChatViewModel: ObservableObject {
 

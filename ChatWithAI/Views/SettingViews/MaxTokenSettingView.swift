@@ -91,7 +91,6 @@ struct MaxTokenSettingView: View {
                         chatVM.maxTokens = value
                         self.dismiss()
                     }
-                    .bold()
                 }
             }
             #endif

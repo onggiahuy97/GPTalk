@@ -15,33 +15,35 @@ struct ModelPickerView: View {
     @State private var showSubscription = false
     
     var body: some View {
-        List {
-            Section {
-                ForEach(ChatGPTModelType.GPT3.allCases) { model in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(model.name)
-                                .bold()
-                            Text(ChatGPTModelType.gpt3(model).goodAt)
-                                .foregroundColor(.secondary)
+        NavigationStack {
+            List {
+                Section {
+                    ForEach(ChatGPTModelType.GPT3.allCases) { model in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(model.name)
+                                    .bold()
+                                Text(ChatGPTModelType.gpt3(model).goodAt)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Image(systemName: "checkmark")
+                                .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
                         }
-                        Spacer()
-                        Image(systemName: "checkmark")
-                            .opacity(chatVM.modelType.modelString == model.rawValue ? 1 : 0)
-                    }
-                    .onTapGesture {
-                        chatVM.modelType = ChatGPTModelType.gpt3(model)
-                        if let maxTokens = Int(chatVM.modelType.maxTokens) {
-                            chatVM.maxTokens = maxTokens
+                        .onTapGesture {
+                            chatVM.modelType = ChatGPTModelType.gpt3(model)
+                            if let maxTokens = Int(chatVM.modelType.maxTokens) {
+                                chatVM.maxTokens = maxTokens
+                            }
                         }
                     }
                 }
             }
-        }
-        .navigationTitle("Pick Model")
-        .toolbar {
-            ToolbarItem {
-                Button("Save", action: dismiss.callAsFunction)
+            .navigationTitle("Pick Model")
+            .toolbar {
+                ToolbarItem {
+                    Button("Save", action: dismiss.callAsFunction)
+                }
             }
         }
     }

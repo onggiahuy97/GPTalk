@@ -36,16 +36,17 @@ struct ChatMessageView: View {
             }
             
         } label: {
-            Label("", systemImage: "ellipsis")
+            Image(systemName: "ellipsis")
         }
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .center) {
                 makeCircleImage(systemName: "person.fill.questionmark")
                 Spacer()
                 Text((chat.date ?? Date()).toString())
+                    .font(.caption)
                 
                 #if os(iOS)
                 menuView

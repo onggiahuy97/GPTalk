@@ -24,7 +24,7 @@ struct ContentView: View {
                         TextField("Key", text: $token)
                         
                         Button("Add") {
-                            chatVM.token = "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"
+                            chatVM.token = token
                             chatVM.modelType = .gpt3(.davinci)
                             chatVM.model = .completions
                             chatVM.maxTokens = Int(chatVM.modelType.maxTokens)!
