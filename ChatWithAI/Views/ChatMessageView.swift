@@ -14,6 +14,8 @@ struct ChatMessageView: View {
     
     @ObservedObject var chat: ChatMessage
     
+    @State private var hasAnswer = false
+    
     var menuView: some View {
         Menu {
             if let url = chat.question?.makeGoogleURL() {
@@ -59,20 +61,19 @@ struct ChatMessageView: View {
                 .padding(.bottom, 5)
             
             HStack(alignment: .top, spacing: 10) {
-                HStack(alignment: .center, spacing: 10) {
-                    makeCircleImage(systemName: "pc")
-                    
-                    if chat.answer == nil {
-                        ProgressView()
-                    }
-                }
+                
+                makeCircleImage(systemName: "pc")
                 
                 Spacer()
                 
             }
             
-            Text(chat.answer ?? "")
-                .textSelection(.enabled)
+            if let answer = chat.answer {
+                Text(answer)
+                    .textSelection(.enabled)
+            } else {
+                RedactedView()
+            }
             
         }
         .padding()
@@ -81,5 +82,6 @@ struct ChatMessageView: View {
                 .stroke()
                 .foregroundColor(.secondary)
         )
+        
     }
 }

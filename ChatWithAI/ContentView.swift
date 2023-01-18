@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var chatVM: ChatViewModel
     
     var body: some View {
         TabView {
@@ -22,7 +23,7 @@ struct ContentView: View {
                 }
         }
         .sheet(isPresented: $appVM.isFirstLauch) {
-            InformationView()
+            APIKeysView()
                 .onDisappear(perform: appVM.checkIfHasSeenBefore)
         }
     }

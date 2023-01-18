@@ -16,6 +16,7 @@ class ChatViewModel: ObservableObject {
     
     private let userDefault = UserDefaults.standard
 
+    @Published var goodAPI = true
     @Published var model = ModelType.completions
     @Published var text = ""
     @Published var modelType = ChatGPTModelType.gpt3(.davinci) {
@@ -32,6 +33,7 @@ class ChatViewModel: ObservableObject {
         didSet {
             userDefault.set(token, forKey: ModelSetting.token.rawValue)
             openAI.token = token
+            testAPI()
         }
     }
     
@@ -39,6 +41,24 @@ class ChatViewModel: ObservableObject {
     
     init() {
         fetchCurrentSetting()
+        testAPI()
+    }
+    
+    func testAPI(completion: @escaping (Bool) -> Void) {
+        openAI.sendCompletion(with: "Tell me a joke", maxTokens: maxTokens) { result in
+            switch result {
+            case .failure(_): completion(false)
+            case .success(_): completion(true)
+            }
+        }
+    }
+    
+    private func testAPI() {
+        testAPI { result in
+            DispatchQueue.main.async {
+                self.goodAPI = result
+            }
+        }
     }
     
     func fetchChat(completion: @escaping (String) -> Void) {

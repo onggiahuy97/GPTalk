@@ -22,6 +22,8 @@ struct ChatsView: View {
     @State private var testSheet = false
     @State private var showSubscription = false
     @State private var showExamples = false
+    @State private var showAlert = false
+    @State private var showAddAPIKey = false
     
     @FocusState private var isTextFieldFocus: Bool
     
@@ -58,6 +60,7 @@ struct ChatsView: View {
                         
                         ForEach(chats) { chat in
                             ChatMessageView(chat: chat)
+                            
                         #if os(iOS)
                                 .fullScreenCover(item: $appVM.urlItem, onDismiss: {
                                     appVM.urlItem = nil
@@ -94,6 +97,7 @@ struct ChatsView: View {
                                 showInformation = appVM.isFirstLauch
                                 deleteUnansweredQuestions()
                             }
+                        
                         #if os(macOS)
                             .onSubmit {
                                 onSubmitChat()
@@ -150,6 +154,28 @@ struct ChatsView: View {
                         ExamplesView()
                     }
                 }
+                
+                if !chatVM.goodAPI {
+                    ToolbarItem {
+                        Button {
+                            showAlert = true
+                        } label: {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                        }
+                        .foregroundColor(.red)
+                        .alert("Missing API Key", isPresented: $showAlert) {
+                            Button("Ok") {
+                                showAddAPIKey = true
+                            }
+                        } message: {
+                            Text("Please add your private API key")
+                        }
+                        .sheet(isPresented: $showAddAPIKey) {
+                            APIKeysView()
+                        }
+                    }
+                }
+                
                 #endif
                 
                 ToolbarItem {
@@ -176,6 +202,7 @@ struct ChatsView: View {
                         }
                     }
                 }
+                
                 
                 #if os(macOS)
                 ToolbarItem {
@@ -212,10 +239,10 @@ struct ChatsView: View {
     private func onSubmitChat() {
         guard !chatVM.text.isEmpty else { return }
         
-#if os(iOS)
+        #if os(iOS)
         let impact = UIImpactFeedbackGenerator(style: .light)
         impact.impactOccurred()
-#endif
+        #endif
         
         isLoadingAnswer = true
         isTextFieldFocus = true

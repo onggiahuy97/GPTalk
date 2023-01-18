@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E05AC892977C2B900772291 /* RedactedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E05AC882977C2B900772291 /* RedactedView.swift */; };
 		3E151B682968FE39007D4311 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E151B672968FE39007D4311 /* Date+Extension.swift */; };
 		3E19103A2963AEC200FBCBC4 /* ChatWithAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */; };
 		3E19103E2963AEC300FBCBC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E19103D2963AEC300FBCBC4 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E05AC882977C2B900772291 /* RedactedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedView.swift; sourceTree = "<group>"; };
 		3E151B672968FE39007D4311 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		3E1910362963AEC200FBCBC4 /* ChatWithAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatWithAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1910392963AEC200FBCBC4 /* ChatWithAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWithAIApp.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				3E255C2E296DDF6800B0E987 /* SafariWebView.swift */,
 				3E99418729724DD80043F238 /* ExamplesView.swift */,
+				3E05AC882977C2B900772291 /* RedactedView.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				3E255C31296DDFD300B0E987 /* MaxTokenSettingView.swift in Sources */,
 				3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */,
 				3E255C33296DDFF300B0E987 /* ModelPickerView.swift in Sources */,
+				3E05AC892977C2B900772291 /* RedactedView.swift in Sources */,
 				3EBC8DBE296C636200255649 /* EditGPTModelType.swift in Sources */,
 				3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */,
 				3EDCA19E2965FEEB00A0AF8B /* AppViewModel.swift in Sources */,
@@ -623,7 +627,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools\npublic.app-category.developer-tools";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -653,7 +657,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools\npublic.app-category.developer-tools";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
