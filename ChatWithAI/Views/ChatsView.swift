@@ -163,12 +163,12 @@ struct ChatsView: View {
                             Image(systemName: "exclamationmark.triangle.fill")
                         }
                         .foregroundColor(.red)
-                        .alert("Missing API Key", isPresented: $showAlert) {
+                        .alert("API Key", isPresented: $showAlert) {
                             Button("Ok") {
                                 showAddAPIKey = true
                             }
                         } message: {
-                            Text("Please add your private API key")
+                            Text("Please make sure you have provided a valid API Key")
                         }
                         .sheet(isPresented: $showAddAPIKey) {
                             APIKeysView()

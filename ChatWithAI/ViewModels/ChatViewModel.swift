@@ -8,7 +8,7 @@
 import Foundation
 
 // Visit https://beta.openai.com/account/api-keys to get your private API Key
-let defaultTokenKey = "Your API Key"
+let defaultTokenKey = "N/A"
 
 class ChatViewModel: ObservableObject {
 
@@ -90,9 +90,6 @@ class ChatViewModel: ObservableObject {
     
     private func filterResult(_ openAIResult: ChatGPT) -> String {
         var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if openAIResult.choices.first?.finishReason == "length" {
-            text.append("...\n\n...not enough tokens to get full answer")
-        }
         if model == .fixGrammar {
             text = "Correct - ".appending(text)
         } else if model == .pharaphrase {
