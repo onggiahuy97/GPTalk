@@ -50,23 +50,6 @@ struct SettingsView: View {
         }
     }
     
-    var maxTokensView: some View {
-        Section {
-            Button {
-                showMaxTokenSettingView = true
-            } label: {
-                Label("Max Tokens", systemImage: "cedisign.circle")
-            }
-            .sheet(isPresented: $showMaxTokenSettingView) {
-                MaxTokenSettingView()
-            }
-        } header: {
-            Text("Tokens")
-        } footer: {
-            Text("Tokens can be words or just chunks of characters. The less tokens, the faster response. Check out [**Tokenizer**](https://beta.openai.com/tokenizer) tool to learn more about how text translates to tokens.")
-        }
-    }
-    
     var aboutMeView: some View {
         Section {
             
@@ -151,7 +134,6 @@ struct SettingsView: View {
             List {
                 aboutMeView
                 apiKeysView
-                maxTokensView
                 modelTypesView
                 chatgpt3View
                 generalSettingView

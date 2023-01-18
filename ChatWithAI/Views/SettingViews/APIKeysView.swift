@@ -45,6 +45,7 @@ struct APIKeysView: View {
                 }
                 
                 Section {
+                } footer: {
                     Button {
                         showTesting = true
                         chatVM.text = "Tell me a joke"
@@ -63,6 +64,10 @@ struct APIKeysView: View {
                     } label: {
                         Text(showTesting ? "Testing..." : "Test your current API key")
                             .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(10)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                     .alert(self.errorMess, isPresented: $showErrorMess) {
                         Button(role: .cancel) {
