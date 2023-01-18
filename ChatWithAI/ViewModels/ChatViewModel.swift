@@ -7,39 +7,18 @@
 
 import Foundation
 
+// Visit https://beta.openai.com/account/api-keys to get your private API Key
+let defaultTokenKey = "N/A"
+
 class ChatViewModel: ObservableObject {
+
+    static let limitToken = 2000
     
-    enum ModelSetting: String, CaseIterable {
-        case modelType
-        case maxTokens
-        case token
-    }
-    
-    enum ModelType: String, CaseIterable, Identifiable {
-        var id: String { self.rawValue }
-        case completions, edits
-        
-        var name: String {
-            switch self {
-            case .completions: return "AI Chat"
-            case .edits: return "Fix Grammar"
-            }
-        }
-    }
-    
-    static let limitCharacters = 200
-    static let limitToken = 500
-    
+    private let userDefault = UserDefaults.standard
+
+    @Published var goodAPI = true
     @Published var model = ModelType.completions
-    
-    @Published var text = "" {
-        didSet {
-            
-        }
-    }
-    
-    private let editModelType = EditGPTModelType.edit(.davinci)
-    
+    @Published var text = ""
     @Published var modelType = ChatGPTModelType.gpt3(.davinci) {
         didSet {
             userDefault.set(modelType.modelString, forKey: ModelSetting.modelType.rawValue)
@@ -50,20 +29,36 @@ class ChatViewModel: ObservableObject {
             userDefault.set(maxTokens, forKey: ModelSetting.maxTokens.rawValue)
         }
     }
-    @Published var token = "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" {
+    @Published var token = defaultTokenKey {
         didSet {
             userDefault.set(token, forKey: ModelSetting.token.rawValue)
+            openAI.token = token
+            testAPI()
         }
     }
     
-    private let userDefault = UserDefaults.standard
-    
-    lazy var openAI: ChatGPTService = {
-        ChatGPTService(token: self.token)
-    }()
+    private let openAI = ChatGPTService()
     
     init() {
-
+        fetchCurrentSetting()
+        testAPI()
+    }
+    
+    func testAPI(completion: @escaping (Bool) -> Void) {
+        openAI.sendCompletion(with: "Tell me a joke", maxTokens: maxTokens) { result in
+            switch result {
+            case .failure(_): completion(false)
+            case .success(_): completion(true)
+            }
+        }
+    }
+    
+    private func testAPI() {
+        testAPI { result in
+            DispatchQueue.main.async {
+                self.goodAPI = result
+            }
+        }
     }
     
     func fetchChat(completion: @escaping (String) -> Void) {
@@ -71,8 +66,7 @@ class ChatViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 print(error)
-//                completion(error.localizedDescription)
-                let errorText = "Something went wrong. Try again"
+                let errorText = ChatGPTService.generalError
                 completion(errorText)
             case .success(let openAIResult):
                 completion(self.filterResult(openAIResult))
@@ -82,9 +76,8 @@ class ChatViewModel: ObservableObject {
         text = ""
     }
     
-    func fixGrammar(completion: @escaping (String) -> Void) {
-        let instruction = ChatGPTService.fixGrammarInstruction
-        openAI.sendEdits(with: instruction, input: text) { result in
+    func fetchEdits(completion: @escaping (String) -> Void) {
+        openAI.sendEdits(with: model.instruction, input: text) { result in
             switch result {
             case .failure(let error):
                 completion(error.localizedDescription)
@@ -97,11 +90,10 @@ class ChatViewModel: ObservableObject {
     
     private func filterResult(_ openAIResult: ChatGPT) -> String {
         var text = openAIResult.choices.first?.text.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        if openAIResult.choices.first?.finishReason == "length" {
-            text.append("...\n\n...not enough tokens to get full answer")
-        }
-        if model == .edits {
-            text = "Correct: ".appending(text)
+        if model == .fixGrammar {
+            text = "Correct - ".appending(text)
+        } else if model == .pharaphrase {
+            text = "Paraphrased - ".appending(text)
         }
         return text
     }
@@ -110,7 +102,8 @@ class ChatViewModel: ObservableObject {
         ModelSetting.allCases.forEach { type in
             switch type {
             case .maxTokens:
-                maxTokens = userDefault.integer(forKey: type.rawValue)
+                let value = userDefault.integer(forKey: type.rawValue)
+                maxTokens = value == 0 ? Self.limitToken : value
             case .modelType:
                 let value = userDefault.string(forKey: type.rawValue)
                 modelType = ChatGPTModelType.gpt3(.init(rawValue: value ?? "") ?? .davinci)
@@ -120,17 +113,40 @@ class ChatViewModel: ObservableObject {
             }
         }
     }
+}
+
+extension ChatViewModel {
+    enum ModelSetting: String, CaseIterable {
+        case modelType
+        case maxTokens
+        case token
+    }
     
-    // Waring: not working correctly
-    func updateCurrentSetting() {
-        ModelSetting.allCases.forEach { type in
-            switch type {
-            case .maxTokens:
-                userDefault.set(maxTokens, forKey: type.rawValue)
-            case .modelType:
-                userDefault.set(modelType.modelString, forKey: type.rawValue)
-            case .token:
-                userDefault.set(token, forKey: type.rawValue)
+    enum ModelType: String, CaseIterable, Identifiable {
+        var id: String { self.rawValue }
+        case completions, fixGrammar, pharaphrase
+        
+        var name: String {
+            switch self {
+            case .completions: return "Chat"
+            case .fixGrammar: return "Fix Grammar"
+            case .pharaphrase: return "Paraphrase"
+            }
+        }
+        
+        var imageName: String {
+            switch self {
+            case .completions: return "ellipsis.bubble"
+            case .fixGrammar: return "checkmark.seal"
+            case .pharaphrase: return "pencil.and.outline"
+            }
+        }
+        
+        var instruction: String {
+            switch self {
+            case .completions: return ""
+            case .pharaphrase : return ChatGPTService.paraphraseTextInstruction
+            case .fixGrammar: return ChatGPTService.fixGrammarInstruction
             }
         }
     }

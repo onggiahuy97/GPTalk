@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appVM: AppViewModel
+    @EnvironmentObject var chatVM: ChatViewModel
+    
     var body: some View {
         TabView {
             ChatsView()
@@ -18,6 +21,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+        }
+        .sheet(isPresented: $appVM.isFirstLauch) {
+            APIKeysView()
+                .onDisappear(perform: appVM.checkIfHasSeenBefore)
         }
     }
 }

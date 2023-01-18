@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ModelPickerView: View {
     @EnvironmentObject var chatVM: ChatViewModel
+    @EnvironmentObject var appVM: AppViewModel
+    
     @Environment(\.dismiss) var dismiss
+    @State private var showSubscription = false
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading) {
+            List {
+                Section {
                     ForEach(ChatGPTModelType.GPT3.allCases) { model in
                         HStack {
                             VStack(alignment: .leading) {
@@ -22,7 +25,6 @@ struct ModelPickerView: View {
                                     .bold()
                                 Text(ChatGPTModelType.gpt3(model).goodAt)
                                     .foregroundColor(.secondary)
-                                Divider()
                             }
                             Spacer()
                             Image(systemName: "checkmark")
@@ -30,13 +32,19 @@ struct ModelPickerView: View {
                         }
                         .onTapGesture {
                             chatVM.modelType = ChatGPTModelType.gpt3(model)
+                            if let maxTokens = Int(chatVM.modelType.maxTokens) {
+                                chatVM.maxTokens = maxTokens
+                            }
                         }
                     }
                 }
-                .padding()
             }
             .navigationTitle("Pick Model")
+            .toolbar {
+                ToolbarItem {
+                    Button("Save", action: dismiss.callAsFunction)
+                }
+            }
         }
     }
 }
-

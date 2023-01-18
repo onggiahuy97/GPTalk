@@ -12,23 +12,23 @@ struct InformationView: View {
     
     @EnvironmentObject var chatVM: ChatViewModel
     
-    @State private var showPayWall = false
+    @State private var showAddAPIKey = false
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     makeRow(header: ChatGPTModelType.GPT3(rawValue: chatVM.modelType.modelString)?.name ?? "", content: chatVM.modelType.goodAt, systemName: "cube.transparent")
-                    makeRow(header: "Max Tokens", content: "500 · More tokens give more words in answer", systemName: "centsign.circle")
+                    makeRow(header: "Max Tokens", content: "\(chatVM.maxTokens) · More tokens give more words in answer", systemName: "centsign.circle")
                     makeRow(header: "Training Data", content: chatVM.modelType.trainingData, systemName: "calendar.circle")
                     makeRow(header: "Description", content: chatVM.modelType.description, systemName: "doc.circle")
-                    Divider()
-                    makeRow(header: "Grammar", content: "The model can fix grammar up to 200 characters", systemName: "wrench.and.screwdriver")
+                    makeRow(header: "Grammar and Paraphrase", content: "The model can fix work up to \(chatVM.maxTokens) characters", systemName: "checkmark.circle")
+                    
                     Button {
-                        showPayWall.toggle()
+                        showAddAPIKey = true
                     } label: {
                         VStack {
-                            Text("Get Subscription")
+                            Text("Add Your API Key")
                                 .bold()
                             Text("So, you can fully customize")
                                 .font(.callout)
@@ -40,14 +40,15 @@ struct InformationView: View {
                         .background(Color.blue)
                         .cornerRadius(12)
                     }
-                    .sheet(isPresented: $showPayWall) {
-                        PayWall()
+                    .sheet(isPresented: $showAddAPIKey) {
+                        APIKeysView()
                     }
-                    
+
                     Spacer()
                 }
                 .padding(30)
-                .navigationTitle("Free Version")
+                .navigationTitle("Current Setting")
+                #if os(iOS)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button {
@@ -57,6 +58,7 @@ struct InformationView: View {
                         }
                     }
                 }
+                #endif
             }
         }
     }

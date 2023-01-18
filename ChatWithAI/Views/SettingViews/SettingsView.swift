@@ -9,23 +9,21 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appVM: AppViewModel
+    
     @Environment(\.managedObjectContext) var viewContext
     
-    var payWallView: some View {
-        Section {
-            makeRow(title: "Subscriptions", systemName: "lock.fill", color: .red) {
-                PayWall()
-            }
-        } header: {
-            Text("Subscription")
-        } footer: {
-            Text("You can choose any subscriptions you'd like to unlock full potential of the app :)")
-        }
-    }
+    @State private var showAPIKeysView = false
+    @State private var showModelPickerView = false
+    @State private var showMaxTokenSettingView = false
     
     var apiKeysView: some View {
         Section {
-            makeRow(title: "API Keys", systemName: "key", color: .blue) {
+            Button {
+                showAPIKeysView = true
+            } label: {
+                Label("API Keys", systemImage: "key")
+            }
+            .sheet(isPresented: $showAPIKeysView) {
                 APIKeysView()
             }
         } header: {
@@ -37,25 +35,18 @@ struct SettingsView: View {
     
     var modelTypesView: some View {
         Section {
-            makeRow(title: "Model", systemName: "cube.transparent", color: .green) {
+            Button {
+                showModelPickerView = true
+            } label: {
+                Label("Model", systemImage: "cube.transparent")
+            }
+            .sheet(isPresented: $showModelPickerView) {
                 ModelPickerView()
             }
         } header: {
             Text("Chat Model")
         } footer: {
             Text("GPT-3 models can understand and generate natural language. We offer four main models with different levels of power. Davinci is the most capable model, and Ada is the fastest.")
-        }
-    }
-    
-    var maxTokensView: some View {
-        Section {
-            makeRow(title: "Max Tokens", systemName: "cedisign.circle", color: .yellow) {
-                MaxTokenSettingView()
-            }
-        } header: {
-            Text("Tokens")
-        } footer: {
-            Text(" Tokens can be words or just chunks of characters. For example, the word “hamburger” gets broken up into the tokens “ham”, “bur” and “ger”. Check out [**Tokenizer**](https://beta.openai.com/tokenizer) tool to learn more about how text translates to tokens.")
         }
     }
     
@@ -78,7 +69,7 @@ struct SettingsView: View {
     
     var chatgpt3View: some View {
         Section {
-            Button("Free Version Info") {
+            Button("Current Setting") {
                 showInformation.toggle()
             }
             .sheet(isPresented: $showInformation) {
@@ -86,30 +77,29 @@ struct SettingsView: View {
                     .onDisappear(perform: appVM.checkIfHasSeenBefore)
             }
             NavigationLink("Model GPT-3") {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 8) {
+                Form {
+                    Section {
                         ForEach(ChatGPTModelType.GPT3.allCases) { model in
-                            HStack {
-                                Text(model.name)
-                                Spacer()
-                            }
-                            .bold()
-                            .font(.title2)
                             VStack(alignment: .leading) {
-                                Text("**Model**: \(model.rawValue)")
-                                Text("**Description**: \(ChatGPTModelType.gpt3(model).description)")
-                                Text("**Good at**: \(ChatGPTModelType.gpt3(model).goodAt)")
-                                Text("**Training data**: \(ChatGPTModelType.gpt3(model).trainingData)")
-                                Text("**Max tokens**: \(ChatGPTModelType.gpt3(model).maxTokens)")
-                            }
-                            .minimumScaleFactor(0.75)
-                            .foregroundColor(.secondary)
                                 
-                            Divider()
-                                .padding(.vertical)
+                                HStack {
+                                    Text(model.name)
+                                    Spacer()
+                                }
+                                .bold()
+                                .font(.title2)
+                                VStack(alignment: .leading) {
+                                    Text("**Model**: \(model.rawValue)")
+                                    Text("**Description**: \(ChatGPTModelType.gpt3(model).description)")
+                                    Text("**Good at**: \(ChatGPTModelType.gpt3(model).goodAt)")
+                                    Text("**Training data**: \(ChatGPTModelType.gpt3(model).trainingData)")
+                                    Text("**Max tokens**: \(ChatGPTModelType.gpt3(model).maxTokens)")
+                                }
+                                .minimumScaleFactor(0.75)
+                                .foregroundColor(.secondary)
+                            }
                         }
                     }
-                    .padding()
                 }
                 .navigationTitle("Model GPT-3")
             }
@@ -141,33 +131,14 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                payWallView
+            List {
+                aboutMeView
                 apiKeysView
-                maxTokensView
                 modelTypesView
                 chatgpt3View
                 generalSettingView
-                aboutMeView
             }
             .navigationTitle("Settings")
-        }
-    }
-    
-    private func makeRow(title: String, systemName: String, color: Color, content: () -> some View) -> some View {
-        NavigationLink(destination: content) {
-            HStack(alignment: .center, spacing: 15) {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 28, height: 28)
-                    .foregroundColor(color)
-                    .overlay(alignment: .center) {
-                        Image(systemName: systemName)
-                            .imageScale(.small)
-                            .foregroundColor(.white)
-                    }
-                Text(title)
-                Spacer()
-            }
         }
     }
 }

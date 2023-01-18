@@ -16,4 +16,13 @@ extension View {
                     .stroke()
             )
     }
+    
+    func makeDoneButton(_ dismiss: Environment<DismissAction>) -> some ToolbarContent {
+        return ToolbarItem {
+            Button("Done") {
+                dismiss.wrappedValue.callAsFunction()
+            }
+        }
+    }
 }
+

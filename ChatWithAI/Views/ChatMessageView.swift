@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct ChatMessageView: View {
-    @EnvironmentObject var appVM: AppViewModel
     @Environment(\.managedObjectContext) var viewContext
+    
+    @EnvironmentObject var appVM: AppViewModel
+    
     @ObservedObject var chat: ChatMessage
     
-    @State private var showMoreInformation = false
-    
-    var smartInfos: [SmartInfo] {
-        return (chat.answer?.getRangeOfPersonName() ?? [])
-            .sorted(by: { $0.tag.rawValue < $1.tag.rawValue })
-    }
+    @State private var hasAnswer = false
     
     var menuView: some View {
         Menu {
@@ -39,6 +36,7 @@ struct ChatMessageView: View {
             } label: {
                 Label("Delete", systemImage: "trash")
             }
+            
         } label: {
             Image(systemName: "ellipsis")
         }
@@ -46,12 +44,15 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
+            HStack(alignment: .center) {
                 makeCircleImage(systemName: "person.fill.questionmark")
                 Spacer()
                 Text((chat.date ?? Date()).toString())
-                    .font(.footnote)
+                    .font(.caption)
+                
+                #if os(iOS)
                 menuView
+                #endif
             }
             
             Text(chat.question ?? "")
@@ -60,35 +61,27 @@ struct ChatMessageView: View {
                 .padding(.bottom, 5)
             
             HStack(alignment: .top, spacing: 10) {
-                HStack(alignment: .center, spacing: 10) {
-                    makeCircleImage(systemName: "pc")
-                    
-                    if chat.answer == nil {
-                        ProgressView()
-                    }
-                }
+                
+                makeCircleImage(systemName: "pc")
                 
                 Spacer()
                 
-                if chat.answer != nil, !smartInfos.isEmpty {
-                    // Add machine learning here
-                }
-                
             }
             
-            Text(chat.answer ?? "")
-                .textSelection(.enabled)
-            
-            #warning("Paraphrasing feature will come later")
-            if let paraphrase = chat.paraphrase {
-                
+            if let answer = chat.answer {
+                Text(answer)
+                    .textSelection(.enabled)
+            } else {
+                RedactedView()
             }
+            
         }
         .padding()
-        .foregroundColor(.accentColor)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke()
+                .foregroundColor(.secondary)
         )
+        
     }
 }
