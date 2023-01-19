@@ -13,14 +13,13 @@ struct ChatsView: View {
     @EnvironmentObject var appVM: AppViewModel
     
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.colorScheme) var colorScheme
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\ChatMessage.date, order: .forward)])
     private var chats: FetchedResults<ChatMessage>
     
     @State private var showInformation = false
     @State private var isLoadingAnswer = false
-    @State private var testSheet = false
-    @State private var showSubscription = false
     @State private var showExamples = false
     @State private var showAlert = false
     @State private var showAddAPIKey = false
@@ -123,15 +122,13 @@ struct ChatsView: View {
                         }
                         .disabled(isLoadingAnswer)
                         
-                        
-                        
                     }
                     .padding([.horizontal, .bottom])
                 }
             }
             
             #if os(macOS)
-            .background(Color.white)
+            .background(colorScheme == .light ? Color.white : Color.black)
             #endif
             
             .navigationTitle("GPTalk")

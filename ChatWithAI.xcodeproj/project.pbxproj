@@ -16,6 +16,8 @@
 		3E19104D2963AF1900FBCBC4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104C2963AF1900FBCBC4 /* ContentView.swift */; };
 		3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
 		3E19105229647B9600FBCBC4 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19105129647B9600FBCBC4 /* ChatGPTService.swift */; };
+		3E1CF95829792D5B008861D6 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1CF95729792D5B008861D6 /* ChatMessageView.swift */; };
+		3E1CF95929792D7E008861D6 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */; };
 		3E255C2A296DC30500B0E987 /* APIKeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C29296DC30500B0E987 /* APIKeysView.swift */; };
 		3E255C2C296DDB3700B0E987 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
 		3E255C2F296DDF6800B0E987 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2E296DDF6800B0E987 /* SafariWebView.swift */; };
@@ -27,7 +29,6 @@
 		3E6AD92C297674AE00D9D777 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1A129667E2500A0AF8B /* String+Extension.swift */; };
 		3E6AD92D297674AE00D9D777 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E151B672968FE39007D4311 /* Date+Extension.swift */; };
 		3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E255C2B296DDB3700B0E987 /* View+Extension.swift */; };
-		3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */; };
 		3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */; };
 		3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */; };
 		3E6AD938297674AE00D9D777 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19D2965FEEB00A0AF8B /* AppViewModel.swift */; };
@@ -53,7 +54,6 @@
 		3EDCA18A296491F600A0AF8B /* ChatGPTEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA189296491F600A0AF8B /* ChatGPTEndpoint.swift */; };
 		3EDCA18F2964C6D200A0AF8B /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA18D2964C6D200A0AF8B /* Main.xcdatamodeld */; };
 		3EDCA1922964C73300A0AF8B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1912964C73300A0AF8B /* DataController.swift */; };
-		3EDCA1962965D8AC00A0AF8B /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1952965D8AC00A0AF8B /* ChatMessageView.swift */; };
 		3EDCA1982965D8CC00A0AF8B /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1972965D8CC00A0AF8B /* ChatsView.swift */; };
 		3EDCA19A2965D9B700A0AF8B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA1992965D9B700A0AF8B /* SettingsView.swift */; };
 		3EDCA19C2965DA9B00A0AF8B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDCA19B2965DA9B00A0AF8B /* InformationView.swift */; };
@@ -71,6 +71,7 @@
 		3E19104C2963AF1900FBCBC4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E19104E2963AF3500FBCBC4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		3E19105129647B9600FBCBC4 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
+		3E1CF95729792D5B008861D6 /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		3E255C29296DC30500B0E987 /* APIKeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeysView.swift; sourceTree = "<group>"; };
 		3E255C2B296DDB3700B0E987 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		3E255C2E296DDF6800B0E987 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
@@ -209,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6AD9202976745C00D9D777 /* ContentView.swift */,
+				3E1CF95729792D5B008861D6 /* ChatMessageView.swift */,
 				3E6AD9222976745D00D9D777 /* Assets.xcassets */,
 				3E6AD9272976745E00D9D777 /* MacGPTalk.entitlements */,
 				3E6AD9242976745E00D9D777 /* Preview Content */,
@@ -372,9 +374,9 @@
 			files = (
 				3EDCA1A229667E2500A0AF8B /* String+Extension.swift in Sources */,
 				3EDCA1982965D8CC00A0AF8B /* ChatsView.swift in Sources */,
-				3EDCA1962965D8AC00A0AF8B /* ChatMessageView.swift in Sources */,
 				3E19103A2963AEC200FBCBC4 /* ChatWithAIApp.swift in Sources */,
 				3EBC8DBC296C5F1D00255649 /* EditGPTInstruction.swift in Sources */,
+				3E1CF95929792D7E008861D6 /* ChatMessageView.swift in Sources */,
 				3E99418829724DD80043F238 /* ExamplesView.swift in Sources */,
 				3E255C2F296DDF6800B0E987 /* SafariWebView.swift in Sources */,
 				3E19104F2963AF3500FBCBC4 /* ChatViewModel.swift in Sources */,
@@ -406,7 +408,7 @@
 				3E6AD92C297674AE00D9D777 /* String+Extension.swift in Sources */,
 				3E6AD92D297674AE00D9D777 /* Date+Extension.swift in Sources */,
 				3E6AD92E297674AE00D9D777 /* View+Extension.swift in Sources */,
-				3E6AD92F297674AE00D9D777 /* ChatMessageView.swift in Sources */,
+				3E1CF95829792D5B008861D6 /* ChatMessageView.swift in Sources */,
 				3E05AC8A2977C38200772291 /* RedactedView.swift in Sources */,
 				3E6AD930297674AE00D9D777 /* ChatsView.swift in Sources */,
 				3E6AD937297674AE00D9D777 /* ChatViewModel.swift in Sources */,
@@ -565,7 +567,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HuyOng.ChatWithAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -599,7 +601,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HuyOng.ChatWithAI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
