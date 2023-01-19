@@ -18,6 +18,7 @@ class AppViewModel: ObservableObject {
     @Published var showSubscription = false
     @Published var isFirstLauch: Bool = false
     @Published var urlItem: URLItem?
+    @Published var fontSize: CGFloat = 15
     
     init() {
         checkIfHasSeenBefore()

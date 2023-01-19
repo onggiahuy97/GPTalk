@@ -20,7 +20,9 @@ struct ChatMessageView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
                 makeCircleImage(systemName: "person.fill.questionmark")
+                
                 Spacer()
+                
                 Text((chat.date ?? Date()).toString())
                     .font(.caption)
                 
