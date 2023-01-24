@@ -35,9 +35,9 @@ struct APIKeysView: View {
                 }
                 
                 Section("Your current API key") {
-                    Text("\(chatVM.token)")
+                  Text("\(String(chatVM.token.prefix(2)))...\(String(chatVM.token.suffix(5)))")
                         .lineLimit(1)
-                        .truncationMode(.middle)
+                        .foregroundColor(.secondary)
                 }
                 
                 Section {

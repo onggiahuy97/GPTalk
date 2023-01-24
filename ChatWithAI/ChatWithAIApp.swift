@@ -36,7 +36,5 @@ struct ChatWithAIApp: App {
             }
         }
         #endif
-        
-    
     }
 }
