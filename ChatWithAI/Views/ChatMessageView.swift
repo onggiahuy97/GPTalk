@@ -43,30 +43,21 @@ struct ChatMessageView: View {
   var body: some View {
     VStack(alignment: .leading) {
       HStack(alignment: .center) {
-        
-        makeCircleImage(systemName: "person.fill.questionmark")
-        
+
         Spacer()
-        
+
         Text((chat.date ?? Date()).toString())
           .font(.caption)
-        
+
         menuView
-        
+
       }
       
       Text(chat.question ?? "")
+        .bold()
       
       Divider()
         .padding(.bottom, 5)
-      
-      HStack(alignment: .top, spacing: 10) {
-        
-        makeCircleImage(systemName: "pc")
-        
-        Spacer()
-        
-      }
       
       if let answer = chat.answer {
         Text(answer)

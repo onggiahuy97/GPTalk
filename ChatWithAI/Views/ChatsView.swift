@@ -60,13 +60,13 @@ struct ChatsView: View {
             ForEach(chats) { chat in
               ChatMessageView(chat: chat)
               
-                #if os(iOS)
+#if os(iOS)
                 .fullScreenCover(item: $appVM.urlItem, onDismiss: {
                   appVM.urlItem = nil
                 }) { item in
                   WebView(url: item.url)
                 }
-                #endif
+#endif
             }
             .padding(.horizontal)
             
@@ -97,11 +97,11 @@ struct ChatsView: View {
                 deleteUnansweredQuestions()
               }
             
-              #if os(macOS)
+#if os(macOS)
               .onSubmit {
                 onSubmitChat()
               }
-              #endif
+#endif
             
             
             if !chatVM.text.isEmpty {
@@ -172,7 +172,6 @@ struct ChatsView: View {
             }
           }
         }
-        
 #endif
         
         ToolbarItem {
@@ -201,7 +200,7 @@ struct ChatsView: View {
         }
         
         
-        #if os(macOS)
+#if os(macOS)
         ToolbarItem {
           Button {
             chats.forEach { viewContext.delete($0) }
@@ -210,7 +209,7 @@ struct ChatsView: View {
             Image(systemName: "trash")
           }
         }
-        #endif
+#endif
       }
     }
   }
@@ -236,10 +235,10 @@ struct ChatsView: View {
   private func onSubmitChat() {
     guard !chatVM.text.isEmpty else { return }
     
-    #if os(iOS)
-    let impact = UIImpactFeedbackGenerator(style: .light)
+#if os(iOS)
+    let impact = UIImpactFeedbackGenerator(style: .medium)
     impact.impactOccurred()
-    #endif
+#endif
     
     isLoadingAnswer = true
     isTextFieldFocus = true
@@ -248,23 +247,24 @@ struct ChatsView: View {
     chat.question = chatVM.text
     chat.date = Date()
     
-    try? viewContext.save()
-    
     switch chatVM.model {
     case .completions:
       chatVM.fetchChat { result in
         chat.answer = result
+        DispatchQueue.main.async {
+          try? viewContext.save()
+        }
       }
     default:
       chatVM.fetchEdits { result in
         chat.answer = result
+        DispatchQueue.main.async {
+          try? viewContext.save()
+        }
       }
     }
     
-    DispatchQueue.main.async {
-      isLoadingAnswer = false
-      chatVM.text = ""
-      try? viewContext.save()
-    }
+    chatVM.text = ""
+    isLoadingAnswer = false
   }
 }

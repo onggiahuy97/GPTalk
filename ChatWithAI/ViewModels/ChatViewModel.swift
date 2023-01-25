@@ -22,6 +22,8 @@ class ChatViewModel: ObservableObject {
   @Published var modelType = ChatGPTModelType.gpt3(.davinci) {
     didSet {
       userDefault.set(modelType.modelString, forKey: ModelSetting.modelType.rawValue)
+      let maxToken = Int(modelType.maxTokens)!
+      maxTokens = maxToken
     }
   }
   @Published var maxTokens = limitToken {
@@ -45,15 +47,13 @@ class ChatViewModel: ObservableObject {
   }
   
   func testAPI(completion: @escaping (Bool) -> Void) {
-    Task {
-      await openAI.sendCompletion(with: "Tell me a joke", maxTokens: maxTokens) { result in
+    openAI.sendCompletion(with: "Tell me a joke", maxTokens: maxTokens) { result in
         switch result {
         case .failure(_): completion(false)
         case .success(_): completion(true)
         }
       }
     }
-  }
   
   private func testAPI() {
     testAPI { result in
@@ -64,8 +64,7 @@ class ChatViewModel: ObservableObject {
   }
   
   func fetchChat(completion: @escaping (String) -> Void) {
-    Task {
-      await openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
+   openAI.sendCompletion(with: text, model: modelType, maxTokens: maxTokens) { result in
         switch result {
         case .failure(let error):
           print(error)
@@ -75,7 +74,6 @@ class ChatViewModel: ObservableObject {
           completion(self.filterResult(openAIResult))
         }
       }
-    }
   }
   
   func fetchEdits(completion: @escaping (String) -> Void) {
@@ -104,13 +102,13 @@ class ChatViewModel: ObservableObject {
       switch type {
       case .maxTokens:
         let value = userDefault.integer(forKey: type.rawValue)
-        maxTokens = value == 0 ? Self.limitToken : value
+        maxTokens = value == 0 ? Int(ChatGPTModelType.gpt3(.davinci).maxTokens)! : value
       case .modelType:
         let value = userDefault.string(forKey: type.rawValue)
         modelType = ChatGPTModelType.gpt3(.init(rawValue: value ?? "") ?? .davinci)
       case .token:
         let value = userDefault.string(forKey: type.rawValue)
-        token = value ?? self.token
+        token = value ?? "N/A"
       }
     }
   }
