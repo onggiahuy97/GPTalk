@@ -103,7 +103,7 @@ struct ChatsView: View {
               }
 #endif
             
-            
+#if os(iOS)
             if !chatVM.text.isEmpty {
               Button {
                 chatVM.text = ""
@@ -121,6 +121,7 @@ struct ChatsView: View {
                 .imageScale(.large)
             }
             .disabled(isLoadingAnswer)
+#endif
             
           }
           .padding([.horizontal, .bottom])

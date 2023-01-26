@@ -18,15 +18,16 @@ class AppViewModel: ObservableObject {
   @Published var showSubscription = false
   @Published var isFirstLauch: Bool = false
   @Published var urlItem: URLItem?
-  @Published var fontSize: CGFloat = 15 {
+  @Published var fontSize: CGFloat = 18 {
     didSet {
-      userDefault.set(fontSize, forKey: "fontSize")
+      userDefault.set(Int(fontSize), forKey: "fontSize")
     }
   }
     
     init() {
       checkIfHasSeenBefore()
-      fontSize = userDefault.integer(forKey: "fontSize") ?? 15
+      let fontSize = userDefault.integer(forKey: "fontSize")
+      self.fontSize = fontSize == 0 ? 18.0 : CGFloat(fontSize)
     }
     
     func checkIfHasSeenBefore() {
