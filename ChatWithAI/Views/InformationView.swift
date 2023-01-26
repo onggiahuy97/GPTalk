@@ -18,11 +18,36 @@ struct InformationView: View {
     NavigationStack {
       ScrollView {
         VStack(alignment: .leading, spacing: 30) {
-          makeRow(header: ChatGPTModelType.GPT3(rawValue: chatVM.modelType.modelString)?.name ?? "", content: chatVM.modelType.goodAt, systemName: "cube.transparent")
-          makeRow(header: "Max Tokens", content: "\(chatVM.maxTokens) · More tokens give more words in answer", systemName: "centsign.circle")
-          makeRow(header: "Training Data", content: chatVM.modelType.trainingData, systemName: "calendar.circle")
-          makeRow(header: "Description", content: chatVM.modelType.description, systemName: "doc.circle")
-          makeRow(header: "Grammar and Paraphrase", content: "The model can fix work up to \(chatVM.maxTokens) characters", systemName: "checkmark.circle")
+          
+          makeRow(
+            header: ChatGPTModelType.GPT3(rawValue: chatVM.modelType.modelString)?.name ?? "",
+            content: chatVM.modelType.goodAt,
+            systemName: "cube.transparent"
+          )
+          
+          makeRow(
+            header: "Max Tokens",
+            content: "\(chatVM.maxTokens) · More tokens give more words in answer",
+            systemName: "centsign.circle"
+          )
+          
+          makeRow(
+            header: "Training Data",
+            content: chatVM.modelType.trainingData,
+            systemName: "calendar.circle"
+          )
+          
+          makeRow(
+            header: "Description",
+            content: chatVM.modelType.description,
+            systemName: "doc.circle"
+          )
+          
+          makeRow(
+            header: "Grammar and Paraphrase",
+            content: "The model can fix work up to \(chatVM.maxTokens) characters",
+            systemName: "checkmark.circle"
+          )
           
           if !chatVM.goodAPI {
             Button {

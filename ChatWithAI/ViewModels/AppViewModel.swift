@@ -8,28 +8,33 @@
 import Foundation
 
 struct URLItem: Identifiable {
-    var id: String { url.absoluteString }
-    var url: URL
+  var id: String { url.absoluteString }
+  var url: URL
 }
 
 class AppViewModel: ObservableObject {
-    private let userDefault = UserDefaults.standard
-    
-    @Published var showSubscription = false
-    @Published var isFirstLauch: Bool = false
-    @Published var urlItem: URLItem?
-    @Published var fontSize: CGFloat = 15
+  private let userDefault = UserDefaults.standard
+  
+  @Published var showSubscription = false
+  @Published var isFirstLauch: Bool = false
+  @Published var urlItem: URLItem?
+  @Published var fontSize: CGFloat = 15 {
+    didSet {
+      userDefault.set(fontSize, forKey: "fontSize")
+    }
+  }
     
     init() {
-        checkIfHasSeenBefore()
+      checkIfHasSeenBefore()
+      fontSize = userDefault.integer(forKey: "fontSize") ?? 15
     }
     
     func checkIfHasSeenBefore() {
-        if userDefault.bool(forKey: "lauchedBefore") == false {
-            isFirstLauch = true
-            userDefault.set(true, forKey: "lauchedBefore")
-        } else {
-            isFirstLauch = false
-        }
+      if userDefault.bool(forKey: "lauchedBefore") == false {
+        isFirstLauch = true
+        userDefault.set(true, forKey: "lauchedBefore")
+      } else {
+        isFirstLauch = false
+      }
     }
-}
+  }
