@@ -26,6 +26,7 @@ class AppViewModel: ObservableObject {
     
     init() {
       checkIfHasSeenBefore()
+      
       let fontSize = userDefault.integer(forKey: "fontSize")
       self.fontSize = fontSize == 0 ? 18.0 : CGFloat(fontSize)
     }

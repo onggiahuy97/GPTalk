@@ -11,6 +11,7 @@ struct ChatMessageView: View {
   @Environment(\.managedObjectContext) var viewContext
   
   @EnvironmentObject var appVM: AppViewModel
+  @EnvironmentObject var chatVM: ChatViewModel
   
   @ObservedObject var chat: ChatMessage
   
@@ -29,6 +30,11 @@ struct ChatMessageView: View {
       
       Text(chat.question ?? "")
         .bold()
+      #if os(macOS)
+        .onTapGesture {
+          chatVM.text = chat.question ?? ""
+        }
+      #endif
       
       Divider()
         .padding(.bottom, 5)
