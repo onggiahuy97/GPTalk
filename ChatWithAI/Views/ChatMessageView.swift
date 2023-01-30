@@ -11,6 +11,7 @@ struct ChatMessageView: View {
   @Environment(\.managedObjectContext) var viewContext
   
   @EnvironmentObject var appVM: AppViewModel
+  @EnvironmentObject var chatVM: ChatViewModel
   
   @ObservedObject var chat: ChatMessage
   
@@ -22,6 +23,13 @@ struct ChatMessageView: View {
         } label: {
           Label("Google", systemImage: "text.magnifyingglass")
         }
+      }
+      
+      Button {
+        chat.isFavorite.toggle()
+        try? viewContext.save()
+      } label: {
+        Label("Favorite", systemImage: "star")
       }
       
       Button(role: .destructive, action: deleteChat) {
@@ -55,6 +63,9 @@ struct ChatMessageView: View {
       
       Text(chat.question ?? "")
         .bold()
+        .onTapGesture {
+          chatVM.text = chat.question ?? ""
+        }
       
       Divider()
         .padding(.bottom, 5)

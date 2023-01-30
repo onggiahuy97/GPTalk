@@ -80,11 +80,11 @@ struct APIKeysView: View {
       .toolbar {
         ToolbarItem {
           Button(token.isEmpty ? "Done" : "Save") {
-            if token.isEmpty { self.dismiss() }
-            guard !token.isEmpty else { return }
+            if token.isEmpty {
+              self.dismiss()
+              return
+            }
             chatVM.token = token
-            chatVM.modelType = .gpt3(.davinci)
-            chatVM.maxTokens = Int(chatVM.modelType.maxTokens)!
             showAlert = true
             token = ""
           }

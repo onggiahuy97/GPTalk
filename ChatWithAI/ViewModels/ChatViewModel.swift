@@ -34,6 +34,8 @@ class ChatViewModel: ObservableObject {
   @Published var token = defaultTokenKey {
     didSet {
       userDefault.set(token, forKey: ModelSetting.token.rawValue)
+      modelType = .gpt3(.davinci)
+      maxTokens = Int(modelType.maxTokens)!
       openAI.token = token
       testAPI()
     }

@@ -30,11 +30,9 @@ struct ChatMessageView: View {
       
       Text(chat.question ?? "")
         .bold()
-      #if os(macOS)
         .onTapGesture {
           chatVM.text = chat.question ?? ""
         }
-      #endif
       
       Divider()
         .padding(.bottom, 5)

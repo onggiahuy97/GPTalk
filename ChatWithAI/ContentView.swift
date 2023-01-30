@@ -17,6 +17,12 @@ struct ContentView: View {
         .tabItem {
           Label("Chats", systemImage: "ellipsis.bubble")
         }
+      
+      FavoriteView()
+        .tabItem {
+          Label("Saved", systemImage: "star")
+        }
+      
       SettingsView()
         .tabItem {
           Label("Settings", systemImage: "gear")
@@ -25,6 +31,20 @@ struct ContentView: View {
     .sheet(isPresented: $appVM.isFirstLauch) {
       APIKeysView()
         .onDisappear(perform: appVM.checkIfHasSeenBefore)
+    }
+  }
+}
+
+struct FavoriteView: View {
+            
+  @EnvironmentObject var dataVM: DataViewModel
+  
+  var body: some View {
+    NavigationStack {
+      List(dataVM.favoritesChat) { chat in
+        Text(chat.question ?? "")
+      }
+      .navigationTitle("Favorite")
     }
   }
 }
