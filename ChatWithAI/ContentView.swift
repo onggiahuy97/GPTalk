@@ -41,7 +41,7 @@ struct FavoriteView: View {
   
   var body: some View {
     NavigationStack {
-      List(dataVM.favoritesChat) { chat in
+      List(dataVM.favoriteChats) { chat in
         Text(chat.question ?? "")
       }
       .navigationTitle("Favorite")

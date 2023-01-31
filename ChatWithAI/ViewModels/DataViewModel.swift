@@ -9,17 +9,14 @@ import Foundation
 import CoreData
 
 class DataViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
-  private let context: NSManagedObjectContext
+  private let viewContext: NSManagedObjectContext
   private let fetchResultedController: NSFetchedResultsController<ChatMessage>
   
   @Published var chats = [ChatMessage]()
-  
-  var favoritesChat: [ChatMessage] {
-    chats.filter { $0.isFavorite }
-  }
+  @Published var favoriteChats = [ChatMessage]()
   
   init(context: NSManagedObjectContext) {
-    self.context = context
+    self.viewContext = context
     
     let request: NSFetchRequest<ChatMessage> = ChatMessage.fetchRequest()
     request.sortDescriptors = [NSSortDescriptor(keyPath: \ChatMessage.date, ascending: true)]
@@ -33,16 +30,25 @@ class DataViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
     fetchData()
   }
   
+  func deleteAllNotFavoriteChats() {
+    let filteredChat = chats.filter { !favoriteChats.contains($0) }
+    filteredChat.forEach {
+      viewContext.delete($0)
+    }
+    try? viewContext.save()
+  }
+  
   private func fetchData() {
     do {
       try fetchResultedController.performFetch()
       chats = fetchResultedController.fetchedObjects ?? []
+      favoriteChats = chats.filter { $0.isFavorite }
     } catch {
       print("Failed to fetch chat message with error: \(error.localizedDescription)")
     }
   }
   
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+  internal func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     fetchData()
   }
 }
