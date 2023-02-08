@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Example: Identifiable {
     var id: String { title }
     let title: String
