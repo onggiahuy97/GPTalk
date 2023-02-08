@@ -1,8 +1,8 @@
 //
 //  ChatMessageView.swift
-//  ChatWithAI
+//  MacGPTalk
 //
-//  Created by Huy Ong on 1/4/23.
+//  Created by Huy Ong on 1/18/23.
 //
 
 import SwiftUI
@@ -15,50 +15,17 @@ struct ChatMessageView: View {
   
   @ObservedObject var chat: ChatMessage
   
-  var menuView: some View {
-    Menu {
-      if let url = chat.question?.makeGoogleURL() {
-        Button {
-          appVM.urlItem = URLItem(url: url)
-        } label: {
-          Label("Google", systemImage: "text.magnifyingglass")
-        }
-      }
-      
-      Button {
-        chat.isFavorite.toggle()
-        try? viewContext.save()
-      } label: {
-        Label("Favorite", systemImage: "star")
-      }
-      
-      Button(role: .destructive, action: deleteChat) {
-        Label("Delete", systemImage: "trash")
-      }
-      
-    } label: {
-      Image(systemName: "ellipsis")
-    }
-  }
-  
-  private func deleteChat() {
-    DispatchQueue.main.async {
-      viewContext.delete(chat)
-      try? viewContext.save()
-    }
-  }
+  @State private var hasAnswer = false
   
   var body: some View {
     VStack(alignment: .leading) {
       HStack(alignment: .center) {
-
+        
         Spacer()
-
+        
         Text((chat.date ?? Date()).toString())
           .font(.caption)
-
-        menuView
-
+        
       }
       
       Text(chat.question ?? "")
@@ -84,5 +51,6 @@ struct ChatMessageView: View {
         .stroke()
         .foregroundColor(.secondary)
     )
+    
   }
 }

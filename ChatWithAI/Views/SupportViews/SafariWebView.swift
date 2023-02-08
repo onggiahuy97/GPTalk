@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-
-#if os(iOS)
-
 import SafariServices
 
 struct SafariWebView: UIViewControllerRepresentable {
@@ -34,4 +31,3 @@ struct WebView: View {
             .edgesIgnoringSafeArea(.all)
     }
 }
-#endif

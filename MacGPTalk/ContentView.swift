@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var chatVM: ChatViewModel
+    @EnvironmentObject var appVM: AppViewModel
     
     @State private var showAlert = false
     @State private var token = ""
     
     var body: some View {
         ChatsView()
+            .font(.system(size: appVM.fontSize))
             .toolbar {
                 ToolbarItem {
                     Button("Your API Key") {
